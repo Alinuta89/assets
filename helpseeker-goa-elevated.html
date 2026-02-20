@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HelpSeeker GOA Overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+<style>
+/* ========================================
+   THEME SYSTEM — Dual Mode Architecture
+   ======================================== */
+
+/* DARK THEME — Tactical Operations */
+[data-theme="dark"] {
+  --bg-primary: #0B1F33;
+  --bg-secondary: #102A43;
+  --bg-tertiary: #0E2439;
+  --bg-surface: rgba(16,42,67,0.85);
+  --bg-surface-hover: rgba(15,185,177,0.06);
+  --bg-elevated: rgba(20,50,78,0.9);
+  --bg-card: rgba(16,42,67,0.7);
+  --bg-card-hover: rgba(16,42,67,0.9);
+  --bg-input: rgba(11,31,51,0.6);
+  --bg-body: #080F18;
+
+  --border-primary: rgba(15,185,177,0.12);
+  --border-secondary: rgba(15,185,177,0.06);
+  --border-subtle: rgba(255,255,255,0.04);
+  --border-active: var(--teal);
+
+  --text-primary: rgba(255,255,255,0.95);
+  --text-secondary: rgba(255,255,255,0.6);
+  --text-tertiary: rgba(255,255,255,0.35);
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+  --shadow-glow: 0 0 20px rgba(15,185,177,0.08);
+
+  --topbar-bg: rgba(11,31,51,0.92);
+  --topbar-border: rgba(15,185,177,0.08);
+  --nav-bg: rgba(14,36,57,0.95);
+  --nav-border: rgba(15,185,177,0.06);
+
+  --glass-bg: rgba(16,42,67,0.6);
+  --glass-border: rgba(15,185,177,0.08);
+  --glass-blur: blur(24px);
+
+  --sidebar-bg: rgba(11,31,51,0.5);
+  --sidebar-border: rgba(15,185,177,0.06);
+
+  --collapsible-bg: rgba(16,42,67,0.4);
+  --collapsible-hover: rgba(15,185,177,0.04);
+
+  --callout-bg: rgba(15,185,177,0.05);
+  --callout-border: var(--teal);
+
+  --stat-glow: rgba(15,185,177,0.15);
+  --hero-overlay: linear-gradient(135deg, rgba(15,185,177,0.04) 0%, transparent 60%);
+
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: rgba(15,185,177,0.15);
+  --scrollbar-hover: rgba(15,185,177,0.25);
+
+  --mode-icon: "light_mode";
+  --mode-label: "Light";
+}
+
+/* LIGHT THEME — Executive Briefing */
+[data-theme="light"] {
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F7F9FB;
+  --bg-tertiary: #EFF3F7;
+  --bg-surface: rgba(255,255,255,0.95);
+  --bg-surface-hover: rgba(15,185,177,0.04);
+  --bg-elevated: rgba(255,255,255,0.98);
+  --bg-card: rgba(255,255,255,1);
+  --bg-card-hover: rgba(255,255,255,1);
+  --bg-input: rgba(247,249,251,0.8);
+  --bg-body: #F2F5F8;
+
+  --border-primary: rgba(11,31,51,0.1);
+  --border-secondary: rgba(11,31,51,0.06);
+  --border-subtle: rgba(11,31,51,0.03);
+  --border-active: var(--teal);
+
+  --text-primary: #0A0A0A;
+  --text-secondary: rgba(10,10,10,0.6);
+  --text-tertiary: rgba(10,10,10,0.38);
+
+  --shadow-sm: 0 1px 3px rgba(11,31,51,0.06);
+  --shadow-md: 0 4px 12px rgba(11,31,51,0.08);
+  --shadow-lg: 0 8px 32px rgba(11,31,51,0.1);
+  --shadow-glow: none;
+
+  --topbar-bg: rgba(255,255,255,0.96);
+  --topbar-border: rgba(11,31,51,0.08);
+  --nav-bg: rgba(255,255,255,1);
+  --nav-border: rgba(11,31,51,0.06);
+
+  --glass-bg: rgba(255,255,255,0.9);
+  --glass-border: rgba(11,31,51,0.08);
+  --glass-blur: blur(20px);
+
+  --sidebar-bg: rgba(247,249,251,0.7);
+  --sidebar-border: rgba(11,31,51,0.06);
+
+  --collapsible-bg: rgba(247,249,251,0.6);
+  --collapsible-hover: rgba(15,185,177,0.03);
+
+  --callout-bg: rgba(15,185,177,0.04);
+  --callout-border: var(--teal);
+
+  --stat-glow: none;
+  --hero-overlay: linear-gradient(135deg, rgba(15,185,177,0.03) 0%, transparent 60%);
+
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: rgba(11,31,51,0.12);
+  --scrollbar-hover: rgba(11,31,51,0.2);
+
+  --mode-icon: "dark_mode";
+  --mode-label: "Dark";
+}
+
+/* ========================================
+   BRAND CONSTANTS (theme-agnostic)
+   ======================================== */
+:root {
+  --navy: #0B1F33;
+  --midnight: #102A43;
+  --teal: #0FB9B1;
+  --aqua: #4FD1C5;
+  --slate: #1E3A5F;
+  --red: #E12D39;
+  --amber: #D97706;
+}
+
+/* ========================================
+   BASE RESET & BODY
+   ======================================== */
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Lato', sans-serif;
+  background: var(--bg-body);
+  color: var(--text-primary);
+  height: 100vh; height: 100dvh;
+  width: 100vw; overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s ease;
+}
+
+/* ========================================
+   AMBIENT BACKGROUND LAYER
+   ======================================== */
+.bg-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none; transition: opacity 0.6s ease; }
+
+.bg-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--border-subtle) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-subtle) 1px, transparent 1px);
+  background-size: 56px 56px;
+  animation: gridDrift 25s linear infinite;
+}
+@keyframes gridDrift { from{transform:translate(0,0)} to{transform:translate(56px,56px)} }
+
+.bg-radial {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 25% 15%, rgba(15,185,177,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 75%, rgba(30,58,95,0.04) 0%, transparent 50%);
+}
+
+[data-theme="light"] .bg-grid {
+  background-image:
+    linear-gradient(rgba(11,31,51,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11,31,51,0.025) 1px, transparent 1px);
+}
+[data-theme="light"] .bg-radial {
+  background:
+    radial-gradient(ellipse at 25% 15%, rgba(15,185,177,0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 75%, rgba(30,58,95,0.02) 0%, transparent 50%);
+}
+
+/* Ambient scan line (dark only) */
+.bg-scan {
+  position: absolute; inset: 0; opacity: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(15,185,177,0.015) 50%, transparent 100%);
+  background-size: 100% 200%; animation: scanMove 8s ease-in-out infinite;
+}
+[data-theme="dark"] .bg-scan { opacity: 1; }
+@keyframes scanMove { 0%{background-position:0 -100%} 50%{background-position:0 100%} 100%{background-position:0 -100%} }
+
+/* ========================================
+   SHELL
+   ======================================== */
+.shell {
+  position: relative; z-index: 2; width: 100%; height: 100vh; height: 100dvh;
+  display: flex; flex-direction: column;
+}
+
+/* ========================================
+   TOPBAR — Command Strip
+   ======================================== */
+.topbar {
+  height: 48px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px;
+  background: var(--topbar-bg);
+  border-bottom: 1px solid var(--topbar-border);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  flex-shrink: 0;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+.tb-brand { display: flex; align-items: center; gap: 12px; }
+.tb-pulse {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--teal);
+  box-shadow: 0 0 8px rgba(15,185,177,0.4);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 8px rgba(15,185,177,0.4)} 50%{opacity:.6;box-shadow:0 0 14px rgba(15,185,177,0.5)} }
+.tb-name { font-size: 10px; font-weight: 700; letter-spacing: 4.5px; text-transform: uppercase; color: var(--teal); }
+.tb-status { font-size: 10px; font-weight: 300; color: var(--text-tertiary); letter-spacing: 1px; }
+.tb-right { display: flex; align-items: center; gap: 16px; }
+.tb-indicator { display: flex; align-items: center; gap: 5px; font-size: 9px; font-weight: 400; color: var(--text-tertiary); letter-spacing: 0.5px; }
+.tb-indicator .material-icons-outlined { font-size: 13px; color: var(--teal); }
+
+/* Theme Toggle Switch */
+.theme-toggle {
+  display: flex; align-items: center; gap: 8px; cursor: pointer;
+  padding: 5px 12px; border-radius: 20px;
+  border: 1px solid var(--border-primary);
+  background: var(--bg-surface);
+  transition: all 0.3s ease;
+  user-select: none;
+}
+.theme-toggle:hover {
+  border-color: var(--teal);
+  background: var(--bg-surface-hover);
+}
+.theme-toggle .material-icons-outlined { font-size: 15px; color: var(--teal); transition: transform 0.4s ease; }
+.theme-toggle:hover .material-icons-outlined { transform: rotate(30deg); }
+.theme-toggle span:last-child { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; color: var(--text-secondary); text-transform: uppercase; }
+
+/* ========================================
+   NAVIGATION RAIL
+   ======================================== */
+.nav-rail {
+  display: flex; align-items: stretch; gap: 0;
+  background: var(--nav-bg);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--nav-border);
+  flex-shrink: 0; height: 52px; padding: 0 16px;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 7px; padding: 0 14px; cursor: pointer;
+  position: relative; border-bottom: 2px solid transparent; color: var(--text-tertiary);
+  transition: all 0.25s ease;
+}
+.nav-item:hover { color: var(--text-secondary); }
+.nav-item.active { color: var(--teal); border-bottom-color: var(--teal); }
+.nav-item .material-icons-outlined { font-size: 18px; }
+.nav-item span:last-child { font-size: 10px; font-weight: 400; letter-spacing: 0.5px; white-space: nowrap; }
+.nav-item.active span:last-child { font-weight: 700; }
+
+/* Active indicator glow (dark only) */
+[data-theme="dark"] .nav-item.active::after {
+  content: ''; position: absolute; bottom: -1px; left: 20%; right: 20%; height: 2px;
+  background: var(--teal); filter: blur(4px); opacity: 0.6;
+}
+
+/* ========================================
+   SECTIONS
+   ======================================== */
+.section { display: none; flex: 1; overflow: hidden; }
+.section.active { display: flex; flex-direction: column; }
+
+/* ========================================
+   GLASS CARDS
+   ======================================== */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm), var(--shadow-glow);
+  transition: background 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.glass:hover {
+  border-color: var(--border-primary);
+}
+.glass-subtle {
+  background: var(--collapsible-bg);
+  border: 1px solid var(--border-secondary);
+  border-radius: 6px;
+  transition: background 0.4s ease;
+}
+
+/* ========================================
+   TAB 1: WHAT WE'RE LEARNING
+   ======================================== */
+.hero-section { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.hero-main { flex: 0 0 auto; padding: 36px 48px 28px; position: relative; }
+.hero-main::before { content: ''; position: absolute; inset: 0; background: var(--hero-overlay); pointer-events: none; }
+.hero-eyebrow {
+  font-size: 9px; font-weight: 700; letter-spacing: 4.5px; color: var(--teal);
+  display: flex; align-items: center; gap: 8px; margin-bottom: 14px; position: relative;
+}
+.hero-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--teal); }
+.hero-title {
+  font-size: 34px; font-weight: 700; line-height: 1.08; max-width: 700px;
+  position: relative; margin-bottom: 12px; letter-spacing: -0.3px;
+}
+.hero-title em { font-style: normal; color: var(--teal); }
+.hero-sub {
+  font-size: 13px; font-weight: 300; line-height: 1.6;
+  color: var(--text-secondary); max-width: 560px; position: relative;
+}
+
+/* Stat Grid */
+.stat-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; padding: 0 48px 20px; flex-shrink: 0; }
+.stat-card {
+  padding: 14px 16px; position: relative; overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.stat-card:hover { transform: translateY(-1px); box-shadow: var(--shadow-md), var(--shadow-glow); }
+.stat-card::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+  background: var(--teal); opacity: 0.7;
+}
+/* Dark mode: add subtle left-edge glow */
+[data-theme="dark"] .stat-card::after {
+  content: ''; position: absolute; top: 10%; left: 0; width: 1px; height: 80%;
+  background: var(--teal); filter: blur(6px); opacity: 0.3;
+}
+.stat-icon { font-size: 20px; color: var(--teal); margin-bottom: 6px; opacity: 0.7; }
+.stat-value { font-size: 24px; font-weight: 700; color: var(--teal); }
+[data-theme="dark"] .stat-value { text-shadow: 0 0 20px rgba(15,185,177,0.2); }
+.stat-label { font-size: 10px; font-weight: 400; color: var(--text-secondary); margin-top: 3px; }
+.stat-sub { font-size: 9px; font-weight: 300; color: var(--text-tertiary); margin-top: 3px; }
+
+/* Problem Strip */
+.problem-strip { flex: 1; display: flex; min-height: 0; border-top: 1px solid var(--border-secondary); }
+.problem-narrative {
+  flex: 0 0 42%; padding: 28px 36px; display: flex; flex-direction: column; justify-content: center;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--midnight) 100%);
+  border-right: 1px solid var(--border-secondary);
+}
+.pn-icon { font-size: 28px; color: var(--aqua); margin-bottom: 12px; opacity: 0.8; }
+.pn-title { font-size: 18px; font-weight: 700; line-height: 1.25; margin-bottom: 10px; color: #fff; }
+.pn-body { font-size: 12px; font-weight: 300; line-height: 1.65; color: rgba(255,255,255,0.65); }
+.problem-visual { flex: 1; padding: 24px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; }
+
+/* ========================================
+   SIDEBAR SHARED
+   ======================================== */
+.sidebar-shared {
+  flex: 0 0 200px; padding: 14px; overflow-y: auto;
+  border-right: 1px solid var(--sidebar-border);
+  background: var(--sidebar-bg);
+  transition: background 0.4s ease;
+}
+.sidebar-label {
+  font-size: 8px; font-weight: 700; letter-spacing: 3px;
+  color: var(--text-tertiary); margin-bottom: 10px; text-transform: uppercase;
+}
+.sidebar-card {
+  display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 6px;
+  cursor: pointer; border: 1px solid transparent; margin-bottom: 4px;
+  transition: all 0.2s ease;
+}
+.sidebar-card:hover { background: var(--bg-surface-hover); border-color: rgba(15,185,177,0.15); }
+.sidebar-card.active {
+  background: rgba(15,185,177,0.06); border-color: var(--teal);
+  box-shadow: 0 0 0 1px rgba(15,185,177,0.1);
+}
+.sidebar-card .material-icons-outlined { font-size: 20px; color: var(--teal); }
+.sc-title { font-size: 11px; font-weight: 700; color: var(--text-primary); }
+.sc-sub { font-size: 9px; font-weight: 300; color: var(--text-tertiary); }
+
+/* Lineage sidebar */
+.sidebar-card-plain { padding: 10px 12px; border-radius: 6px; cursor: pointer; border: 1px solid transparent; margin-bottom: 4px; transition: all 0.2s; }
+.sidebar-card-plain:hover { background: var(--bg-surface-hover); border-color: rgba(15,185,177,0.15); }
+.sidebar-card-plain.active { background: rgba(15,185,177,0.06); border-color: var(--teal); box-shadow: 0 0 0 1px rgba(15,185,177,0.1); }
+.scp-type { font-size: 7px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 2px 6px; border-radius: 2px; display: inline-block; margin-bottom: 4px; }
+.scp-type.executive { background: rgba(15,185,177,0.1); color: var(--teal); }
+.scp-type.legislative { background: rgba(30,58,95,0.12); color: var(--aqua); }
+[data-theme="light"] .scp-type.legislative { color: var(--slate); }
+.scp-type.operational { background: rgba(217,119,6,0.1); color: var(--amber); }
+
+/* ========================================
+   DETAIL PANELS
+   ======================================== */
+.detail-wrap { flex: 1; display: flex; min-height: 0; }
+.detail-panel { flex: 1; padding: 24px 32px; overflow-y: auto; }
+.detail-split { flex: 1; padding: 24px 32px; overflow-y: auto; display: flex; gap: 24px; }
+.detail-col { flex: 1; }
+.col-label { font-size: 8px; font-weight: 700; letter-spacing: 3px; color: var(--text-tertiary); margin-bottom: 12px; text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
+.col-label .material-icons-outlined { font-size: 14px; color: var(--teal); }
+.d-point { margin-bottom: 12px; padding: 10px 14px; border-radius: 6px; border: 1px solid var(--border-secondary); transition: border-color 0.2s; }
+.d-point:hover { border-color: var(--border-primary); }
+.d-point-title { font-size: 12px; font-weight: 700; color: var(--text-primary); margin-bottom: 2px; }
+.d-point-body { font-size: 10px; font-weight: 300; color: var(--text-secondary); line-height: 1.5; }
+.d-tag { display: inline-block; font-size: 8px; font-weight: 700; letter-spacing: 1px; padding: 3px 8px; border-radius: 3px; margin-top: 6px; background: rgba(15,185,177,0.1); color: var(--teal); }
+.d-title { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.d-type-tag { font-size: 8px; font-weight: 700; letter-spacing: 1px; padding: 3px 8px; border-radius: 3px; display: inline-block; margin-bottom: 16px; }
+.d-type-tag.executive { background: rgba(15,185,177,0.1); color: var(--teal); }
+.d-type-tag.legislative { background: rgba(30,58,95,0.12); color: var(--aqua); }
+[data-theme="light"] .d-type-tag.legislative { color: var(--slate); }
+.d-type-tag.operational { background: rgba(217,119,6,0.1); color: var(--amber); }
+.d-section-label { font-size: 8px; font-weight: 700; letter-spacing: 2px; color: var(--text-tertiary); margin: 16px 0 8px; text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
+.d-section-label .material-icons-outlined { font-size: 14px; color: var(--teal); }
+.d-body { font-size: 12px; font-weight: 300; color: var(--text-secondary); line-height: 1.6; }
+.d-action { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border-secondary); }
+.d-action-icon { color: var(--teal); font-size: 16px; flex-shrink: 0; padding-top: 1px; }
+.d-action-title { font-size: 11px; font-weight: 700; color: var(--text-primary); }
+.d-action-body { font-size: 10px; font-weight: 300; color: var(--text-secondary); margin-top: 1px; line-height: 1.5; }
+.d-callout {
+  margin-top: 18px; padding: 14px 16px; border-radius: 6px;
+  background: var(--callout-bg); border-left: 3px solid var(--callout-border);
+  transition: background 0.4s ease;
+}
+.d-callout-label { font-size: 8px; font-weight: 700; letter-spacing: 2px; color: var(--teal); margin-bottom: 4px; }
+.d-callout-text { font-size: 12px; font-weight: 400; color: var(--text-secondary); line-height: 1.5; font-style: italic; }
+
+/* ========================================
+   TAB 4: GRAPH QUERIES
+   ======================================== */
+.graph-wrap { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.graph-top { display: flex; gap: 8px; padding: 12px 20px; flex-shrink: 0; border-bottom: 1px solid var(--border-secondary); }
+.gt-card {
+  flex: 1; padding: 12px 14px; text-align: center; border-radius: 6px;
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-sm); transition: all 0.3s ease;
+}
+.gt-card:hover { border-color: var(--border-primary); transform: translateY(-1px); }
+.gt-icon { font-size: 18px; color: var(--teal); margin-bottom: 4px; opacity: 0.6; }
+.gt-value { font-size: 20px; font-weight: 700; color: var(--teal); }
+[data-theme="dark"] .gt-value { text-shadow: 0 0 16px rgba(15,185,177,0.15); }
+.gt-label { font-size: 9px; font-weight: 400; color: var(--text-secondary); margin-top: 2px; }
+.gt-sub { font-size: 7px; font-weight: 300; color: var(--text-tertiary); margin-top: 2px; }
+.graph-body { display: flex; flex: 1; min-height: 0; }
+
+.scenario-card { padding: 10px 12px; border-radius: 6px; cursor: pointer; border: 1px solid transparent; margin-bottom: 4px; transition: all 0.2s; }
+.scenario-card:hover { background: var(--bg-surface-hover); border-color: rgba(15,185,177,0.15); }
+.scenario-card.active { background: rgba(15,185,177,0.06); border-color: var(--teal); box-shadow: 0 0 0 1px rgba(15,185,177,0.1); }
+.scenario-name { font-size: 11px; font-weight: 700; color: var(--text-primary); }
+.scenario-desc { font-size: 9px; font-weight: 300; color: var(--text-tertiary); margin-top: 1px; }
+.scenario-meta { font-size: 9px; font-weight: 700; color: var(--teal); margin-top: 4px; display: flex; align-items: center; gap: 4px; }
+.scenario-meta .material-icons-outlined { font-size: 12px; }
+
+.agent-panel { flex: 1; padding: 20px 28px; overflow-y: auto; background: var(--sidebar-bg); transition: background 0.4s ease; }
+.agent-step {
+  margin-bottom: 8px; padding: 10px 14px; border-radius: 6px;
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  animation: stepIn 0.3s ease; box-shadow: var(--shadow-sm);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.agent-step:hover { border-color: var(--border-primary); }
+@keyframes stepIn { from{opacity:0;transform:translateX(-8px)} to{opacity:1;transform:none} }
+.step-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+.step-action-text { font-size: 11px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 6px; }
+.step-action-text .material-icons-outlined { font-size: 14px; color: var(--teal); }
+.step-tag { font-size: 7px; font-weight: 700; letter-spacing: 1px; padding: 2px 6px; border-radius: 2px; text-transform: uppercase; }
+.step-tag.query { background: rgba(15,185,177,0.12); color: var(--teal); }
+.step-tag.finding { background: rgba(79,209,197,0.15); color: var(--aqua); }
+.step-tag.risk { background: rgba(225,45,57,0.1); color: var(--red); }
+.step-tag.savings { background: rgba(15,185,177,0.12); color: var(--teal); }
+.step-tag.insight { background: rgba(217,119,6,0.12); color: var(--amber); }
+.step-detail { font-size: 10px; font-weight: 300; color: var(--text-secondary); line-height: 1.55; }
+.step-metric { font-size: 9px; font-weight: 400; color: var(--teal); margin-top: 4px; display: flex; align-items: center; gap: 4px; }
+.step-metric .material-icons-outlined { font-size: 12px; }
+.agent-decision {
+  margin-top: 14px; padding: 12px 16px; border-radius: 6px;
+  background: var(--callout-bg); border: 1px solid rgba(15,185,177,0.15);
+  animation: stepIn 0.4s ease;
+}
+.ad-label { font-size: 8px; font-weight: 700; letter-spacing: 2px; color: var(--teal); margin-bottom: 4px; }
+.ad-text { font-size: 11px; font-weight: 400; color: var(--text-secondary); line-height: 1.55; }
+
+/* ========================================
+   TAB 5: PLATFORM
+   ======================================== */
+.platform-section { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.platform-hero {
+  padding: 24px 40px; flex-shrink: 0; position: relative;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--slate) 60%, rgba(15,185,177,0.15) 100%);
+  border-bottom: 1px solid var(--border-secondary);
+}
+.platform-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 40%, rgba(15,185,177,0.08) 0%, transparent 55%); pointer-events: none; }
+.platform-hero, .platform-hero * { color: #fff; }
+.ph-eyebrow { font-size: 8px; font-weight: 700; letter-spacing: 4px; color: var(--aqua) !important; margin-bottom: 6px; position: relative; }
+.ph-title { font-size: 22px; font-weight: 700; max-width: 640px; position: relative; line-height: 1.2; }
+.ph-sub { font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.7) !important; margin-top: 6px; max-width: 580px; position: relative; line-height: 1.5; }
+.platform-body { flex: 1; display: flex; min-height: 0; }
+.platform-left { flex: 0 0 280px; padding: 16px; overflow-y: auto; border-right: 1px solid var(--sidebar-border); background: var(--sidebar-bg); transition: background 0.4s ease; }
+.platform-right { flex: 1; padding: 20px 28px; overflow-y: auto; }
+.pl-section-label { font-size: 8px; font-weight: 700; letter-spacing: 2px; color: var(--text-tertiary); margin: 14px 0 8px; text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
+.pl-section-label:first-child { margin-top: 0; }
+.pl-section-label .material-icons-outlined { font-size: 14px; color: var(--teal); }
+.pl-source { display: flex; align-items: flex-start; gap: 10px; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border-secondary); margin-bottom: 5px; transition: border-color 0.2s; }
+.pl-source:hover { border-color: var(--border-primary); }
+.pl-source.live { border-color: rgba(15,185,177,0.2); }
+.pl-source.future { border-style: dashed; opacity: 0.65; }
+.pl-source .material-icons-outlined { font-size: 18px; color: var(--teal); flex-shrink: 0; margin-top: 1px; }
+.pl-source.future .material-icons-outlined { color: var(--text-tertiary); }
+.pl-src-title { font-size: 11px; font-weight: 700; color: var(--text-primary); }
+.pl-src-desc { font-size: 9px; font-weight: 300; color: var(--text-secondary); margin-top: 1px; line-height: 1.4; }
+.pl-src-tag { display: inline-block; font-size: 7px; font-weight: 700; letter-spacing: 1px; padding: 2px 6px; border-radius: 2px; margin-top: 4px; }
+.pl-tag-live { background: rgba(15,185,177,0.12); color: var(--teal); }
+.pl-tag-next { background: rgba(217,119,6,0.12); color: var(--amber); }
+.pl-tag-future { background: rgba(30,58,95,0.1); color: var(--text-tertiary); }
+.pl-tag-easy { background: rgba(79,209,197,0.12); color: var(--aqua); }
+
+/* Compass diagram */
+.compass-diagram {
+  margin: 16px 0; padding: 20px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--navy), var(--midnight));
+  border: 1px solid var(--glass-border); position: relative; overflow: hidden;
+}
+.compass-diagram::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(15,185,177,0.04) 0%, transparent 70%); }
+.compass-diagram, .compass-diagram * { color: #fff; }
+.compass-title-bar { font-size: 8px; font-weight: 700; letter-spacing: 3px; color: var(--teal) !important; margin-bottom: 14px; text-transform: uppercase; position: relative; text-align: center; }
+.compass-outer { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.compass-ring {
+  width: 100%; padding: 10px 16px; border-radius: 6px; text-align: center; position: relative;
+  border: 1px solid rgba(15,185,177,0.2); background: rgba(15,185,177,0.03);
+  font-size: 10px; font-weight: 700; color: var(--aqua) !important; letter-spacing: 1px;
+  animation: ringPulse 3s ease-in-out infinite;
+}
+@keyframes ringPulse { 0%,100%{border-color:rgba(15,185,177,0.2)} 50%{border-color:rgba(15,185,177,0.5)} }
+.compass-ring .ring-sub { font-size: 8px; font-weight: 300; color: rgba(255,255,255,0.5) !important; margin-top: 2px; letter-spacing: 0; }
+.compass-products { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; width: 100%; position: relative; }
+.compass-product {
+  padding: 10px 8px; border-radius: 6px; text-align: center;
+  border: 1px solid rgba(15,185,177,0.1); background: rgba(15,185,177,0.02);
+  cursor: default; transition: all 0.3s;
+}
+.compass-product:hover { border-color: var(--teal); background: rgba(15,185,177,0.06); }
+.compass-product .cp-icon { font-size: 18px; color: var(--teal); margin-bottom: 4px; }
+.compass-product .cp-name { font-size: 10px; font-weight: 700; }
+.compass-product .cp-glyph { font-size: 11px; margin-bottom: 2px; }
+.compass-product .cp-role { font-size: 8px; font-weight: 300; color: rgba(255,255,255,0.5) !important; margin-top: 2px; line-height: 1.3; }
+.compass-volto {
+  width: 100%; padding: 10px 16px; border-radius: 6px; text-align: center;
+  border: 1px solid rgba(15,185,177,0.25); background: rgba(15,185,177,0.05); position: relative;
+}
+.compass-volto .cv-icon { font-size: 20px; color: var(--teal); }
+.compass-volto .cv-name { font-size: 10px; font-weight: 700; color: var(--teal) !important; }
+.compass-volto .cv-role { font-size: 8px; font-weight: 300; color: rgba(255,255,255,0.5) !important; margin-top: 2px; }
+.compass-flow { display: flex; justify-content: center; gap: 20px; padding: 2px 0; }
+.compass-arrow { color: var(--teal); font-size: 16px; opacity: 0.4; animation: flowPulse 2s ease-in-out infinite; }
+.compass-arrow:nth-child(2) { animation-delay: 0.3s; }
+.compass-arrow:nth-child(3) { animation-delay: 0.6s; }
+@keyframes flowPulse { 0%,100%{opacity:0.2} 50%{opacity:0.7} }
+
+.pr-infra-card { padding: 12px 16px; border-radius: 6px; border: 1px solid var(--glass-border); margin-bottom: 8px; background: var(--glass-bg); transition: all 0.3s; }
+.pr-infra-card:hover { border-color: var(--border-primary); }
+.pr-infra-name { font-size: 12px; font-weight: 700; color: var(--text-primary); }
+.pr-infra-role { font-size: 10px; font-weight: 300; color: var(--text-secondary); margin-top: 3px; line-height: 1.45; }
+.pr-infra-tag { display: inline-block; font-size: 7px; font-weight: 700; letter-spacing: 1px; padding: 2px 6px; border-radius: 2px; margin-top: 6px; background: rgba(15,185,177,0.1); color: var(--teal); }
+.pr-gain-row { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border-secondary); }
+.pr-gain-row .material-icons-outlined { font-size: 20px; color: var(--teal); flex-shrink: 0; opacity: 0.7; }
+.pr-gain-title { font-size: 12px; font-weight: 700; color: var(--text-primary); }
+.pr-gain-body { font-size: 10px; font-weight: 300; color: var(--text-secondary); margin-top: 2px; line-height: 1.45; }
+.pr-scale-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 14px; }
+.pr-scale-card { padding: 12px; text-align: center; border-radius: 6px; background: linear-gradient(135deg, var(--navy), var(--midnight)); border: 1px solid rgba(15,185,177,0.08); }
+.pr-scale-card, .pr-scale-card * { color: #fff; }
+.pr-scale-value { font-size: 20px; font-weight: 700; color: var(--teal) !important; }
+[data-theme="dark"] .pr-scale-value { text-shadow: 0 0 16px rgba(15,185,177,0.15); }
+.pr-scale-label { font-size: 9px; font-weight: 400; color: rgba(255,255,255,0.7) !important; margin-top: 2px; }
+.pr-scale-sub { font-size: 7px; font-weight: 300; color: rgba(255,255,255,0.5) !important; margin-top: 2px; }
+.pr-callout { margin-top: 18px; padding: 16px 20px; border-radius: 6px; background: var(--callout-bg); border: 1px solid rgba(15,185,177,0.12); }
+.pr-callout-label { font-size: 8px; font-weight: 700; letter-spacing: 2px; color: var(--teal); margin-bottom: 6px; }
+.pr-callout-text { font-size: 12px; font-weight: 400; color: var(--text-secondary); line-height: 1.55; }
+
+/* ========================================
+   PARTNERSHIP
+   ======================================== */
+.partner-section { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.partner-body { flex: 1; display: flex; min-height: 0; }
+.partner-stack-col { flex: 0 0 52%; padding: 20px 24px; overflow-y: auto; border-right: 1px solid var(--sidebar-border); }
+.partner-detail-col { flex: 1; padding: 20px 24px; overflow-y: auto; }
+.ps-layer { margin-bottom: 10px; padding: 14px 16px; border-radius: 6px; border: 1px solid var(--border-secondary); transition: all 0.2s; }
+.ps-layer:hover { border-color: rgba(15,185,177,0.2); }
+.ps-layer-bar { display: inline-flex; align-items: center; gap: 5px; font-size: 8px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 3px; margin-bottom: 8px; }
+.ps-layer-bar .material-icons-outlined { font-size: 13px; }
+.ps-layer-bar.app { background: rgba(15,185,177,0.1); color: var(--teal); }
+.ps-layer-bar.semantic { background: rgba(15,185,177,0.08); color: var(--aqua); }
+.ps-layer-bar.agent { background: rgba(30,58,95,0.1); color: var(--aqua); }
+[data-theme="light"] .ps-layer-bar.agent { color: var(--slate); }
+.ps-layer-bar.data { background: rgba(30,58,95,0.08); color: var(--text-secondary); }
+.ps-layer-bar.infra { background: rgba(30,58,95,0.06); color: var(--text-tertiary); }
+.ps-who { font-size: 10px; font-weight: 700; color: var(--teal); margin-bottom: 3px; }
+.ps-desc { font-size: 11px; font-weight: 300; color: var(--text-secondary); line-height: 1.55; margin-bottom: 6px; }
+.ps-products { display: flex; flex-wrap: wrap; gap: 4px; }
+.ps-prod { font-size: 8px; font-weight: 400; color: var(--text-secondary); padding: 2px 7px; border-radius: 3px; border: 1px solid var(--border-secondary); }
+.pd-why-body { font-size: 10px; font-weight: 300; color: var(--text-secondary); margin-top: 2px; line-height: 1.5; }
+
+/* ========================================
+   KEY POINTS
+   ======================================== */
+.premier-section { flex: 1; overflow-y: auto; padding: 24px 36px; }
+.pm-label { font-size: 8px; font-weight: 700; letter-spacing: 2px; color: var(--aqua); margin-bottom: 8px; }
+.pm-headline { font-size: 15px; font-weight: 700; line-height: 1.25; margin-bottom: 8px; }
+.pm-body { font-size: 11px; font-weight: 300; color: var(--text-secondary); line-height: 1.6; }
+.pa-label { font-size: 8px; font-weight: 700; letter-spacing: 3px; color: var(--text-tertiary); margin-bottom: 12px; text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
+.pa-label .material-icons-outlined { font-size: 14px; color: var(--teal); }
+.pa-body { font-size: 10px; font-weight: 300; color: var(--text-secondary); margin-top: 1px; line-height: 1.5; }
+.pt-label { font-size: 8px; font-weight: 700; letter-spacing: 3px; color: var(--text-tertiary); margin: 24px 0 12px; text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
+.pt-label .material-icons-outlined { font-size: 14px; color: var(--teal); }
+
+/* ========================================
+   SYNERGY LOOP
+   ======================================== */
+.synergy-container { padding: 16px; position: relative; }
+.synergy-loop { position: relative; width: 100%; aspect-ratio: 1.4; max-height: 320px; margin: 0 auto; }
+.synergy-node {
+  position: absolute; display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 12px 10px; border-radius: 10px;
+  border: 1px solid var(--glass-border); background: var(--glass-bg);
+  box-shadow: var(--shadow-md); backdrop-filter: blur(10px);
+  transition: all 0.3s; cursor: pointer; width: 130px;
+}
+.synergy-node:hover { border-color: var(--teal); background: var(--bg-surface-hover); transform: scale(1.04); }
+.synergy-node .material-icons-outlined { font-size: 24px; margin-bottom: 4px; }
+.synergy-node .sn-name { font-size: 10px; font-weight: 700; }
+.synergy-node .sn-role { font-size: 8px; font-weight: 300; color: var(--text-tertiary); margin-top: 2px; line-height: 1.3; }
+.synergy-node.center {
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  border-color: rgba(217,119,6,0.25); background: rgba(217,119,6,0.06);
+  box-shadow: var(--shadow-md); width: 140px; z-index: 2;
+}
+.synergy-node.center:hover { border-color: var(--amber); transform: translate(-50%,-50%) scale(1.04); background: rgba(217,119,6,0.1); }
+.synergy-node.center .material-icons-outlined { color: var(--amber); }
+.synergy-node.center .sn-name { color: var(--amber); }
+.synergy-node.top { top: 2%; left: 50%; transform: translateX(-50%); }
+.synergy-node.top:hover { transform: translateX(-50%) scale(1.04); }
+.synergy-node.top .material-icons-outlined { color: var(--teal); }
+.synergy-node.top .sn-name { color: var(--teal); }
+.synergy-node.bl { bottom: 2%; left: 8%; }
+.synergy-node.bl .material-icons-outlined { color: var(--aqua); }
+.synergy-node.bl .sn-name { color: var(--aqua); }
+.synergy-node.br { bottom: 2%; right: 8%; }
+.synergy-node.br .material-icons-outlined { color: var(--slate); }
+.synergy-node.br .sn-name { color: rgba(160,190,220,0.9); }
+.synergy-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+.synergy-svg line { stroke: var(--teal); stroke-width: 1; opacity: 0.3; stroke-dasharray: 6 4; animation: dashFlow 2s linear infinite; }
+.synergy-svg line.to-center { stroke: var(--amber); opacity: 0.25; }
+@keyframes dashFlow { from{stroke-dashoffset:0} to{stroke-dashoffset:-20} }
+.synergy-btn {
+  display: flex; align-items: center; gap: 6px; margin: 12px auto 0;
+  padding: 8px 18px; border-radius: 6px; cursor: pointer;
+  background: rgba(15,185,177,0.08); border: 1px solid rgba(15,185,177,0.2);
+  color: var(--teal); font-family: 'Lato', sans-serif; font-size: 10px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase; transition: all 0.2s;
+}
+.synergy-btn:hover { background: rgba(15,185,177,0.12); border-color: var(--teal); }
+.synergy-btn .material-icons-outlined { font-size: 14px; }
+
+/* Partner modal */
+.partner-modal-overlay { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.5); backdrop-filter: blur(12px); align-items: center; justify-content: center; }
+.partner-modal-overlay.open { display: flex; }
+.partner-modal {
+  width: 520px; max-height: 80vh; overflow-y: auto;
+  background: var(--bg-elevated); backdrop-filter: blur(24px); box-shadow: var(--shadow-lg);
+  border: 1px solid var(--glass-border); border-radius: 12px;
+  padding: 28px; animation: modalIn 0.3s ease;
+}
+@keyframes modalIn { from{opacity:0;transform:scale(0.95)} to{opacity:1;transform:none} }
+.pm-close { float: right; cursor: pointer; color: var(--text-tertiary); font-size: 20px; transition: color 0.2s; background: none; border: none; }
+.pm-close:hover { color: var(--teal); }
+.pm-modal-title { font-size: 14px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; color: var(--text-primary); }
+.pm-modal-title .material-icons-outlined { font-size: 18px; color: var(--teal); }
+.pm-partner-card {
+  display: flex; gap: 14px; padding: 14px; margin-bottom: 8px;
+  border-radius: 8px; border: 1px solid var(--border-secondary); transition: all 0.2s;
+}
+.pm-partner-card:hover { border-color: rgba(15,185,177,0.2); }
+.pm-partner-icon { width: 44px; height: 44px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.pm-partner-icon .material-icons-outlined { font-size: 24px; }
+.pm-partner-icon.hs { background: rgba(15,185,177,0.1); }
+.pm-partner-icon.hs .material-icons-outlined { color: var(--teal); }
+.pm-partner-icon.denvr { background: rgba(79,209,197,0.1); }
+.pm-partner-icon.denvr .material-icons-outlined { color: var(--aqua); }
+.pm-partner-icon.amii { background: rgba(30,58,95,0.1); }
+.pm-partner-icon.amii .material-icons-outlined { color: rgba(160,190,220,0.9); }
+.pm-partner-name { font-size: 12px; font-weight: 700; margin-bottom: 2px; color: var(--text-primary); }
+.pm-partner-desc { font-size: 10px; font-weight: 300; color: var(--text-secondary); line-height: 1.45; }
+.pm-partner-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.pm-partner-chip { font-size: 8px; font-weight: 400; color: var(--text-secondary); padding: 2px 7px; border-radius: 3px; border: 1px solid var(--border-secondary); }
+
+/* ========================================
+   TAB 2: CAPABILITIES
+   ======================================== */
+.cap-section { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.cap-hero {
+  padding: 24px 40px 16px; flex-shrink: 0; position: relative;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--slate) 60%, rgba(15,185,177,0.15) 100%);
+  border-bottom: 1px solid var(--border-secondary);
+}
+.cap-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 40%, rgba(15,185,177,0.08) 0%, transparent 55%); pointer-events: none; }
+.cap-eyebrow { font-size: 8px; font-weight: 700; letter-spacing: 4px; color: var(--aqua); margin-bottom: 6px; position: relative; }
+.cap-title { font-size: 22px; font-weight: 700; color: #fff; max-width: 640px; position: relative; line-height: 1.2; }
+.cap-summary { font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.7); margin-top: 6px; max-width: 580px; position: relative; line-height: 1.55; }
+.cap-stats-strip {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 0; flex-shrink: 0;
+  border-bottom: 1px solid var(--border-secondary);
+  background: var(--bg-primary);
+  transition: background 0.4s ease;
+}
+.cap-stat { padding: 14px 20px; text-align: center; position: relative; border-right: 1px solid var(--border-subtle); }
+.cap-stat:last-child { border-right: none; }
+.cap-stat-value { font-size: 22px; font-weight: 700; color: var(--teal); }
+[data-theme="dark"] .cap-stat-value { text-shadow: 0 0 16px rgba(15,185,177,0.15); }
+.cap-stat-label { font-size: 9px; font-weight: 400; color: var(--text-tertiary); margin-top: 2px; letter-spacing: 0.3px; }
+.cap-cards-area { flex: 1; overflow-y: auto; padding: 20px 40px 28px; display: flex; flex-direction: column; gap: 10px; }
+.cap-card {
+  border: 1px solid var(--glass-border); border-radius: 10px; overflow: hidden;
+  background: var(--glass-bg); transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+.cap-card:hover { border-color: rgba(15,185,177,0.15); box-shadow: var(--shadow-md); }
+.cap-card.open { border-color: rgba(15,185,177,0.2); }
+.cap-card-header {
+  display: flex; align-items: center; gap: 14px; padding: 16px 20px; cursor: pointer;
+  user-select: none; transition: background 0.2s;
+}
+.cap-card-header:hover { background: var(--collapsible-hover); }
+.cap-card-icon { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.cap-card-icon .material-icons-outlined { font-size: 20px; }
+.cap-card-icon.linked { background: rgba(15,185,177,0.1); }
+.cap-card-icon.linked .material-icons-outlined { color: var(--teal); }
+.cap-card-icon.insights { background: rgba(30,58,95,0.08); }
+.cap-card-icon.insights .material-icons-outlined { color: var(--aqua); }
+[data-theme="light"] .cap-card-icon.insights .material-icons-outlined { color: var(--slate); }
+.cap-card-icon.risk { background: rgba(225,45,57,0.08); }
+.cap-card-icon.risk .material-icons-outlined { color: var(--red); }
+.cap-card-icon.action { background: rgba(217,119,6,0.08); }
+.cap-card-icon.action .material-icons-outlined { color: var(--amber); }
+.cap-card-info { flex: 1; }
+.cap-card-title { font-size: 14px; font-weight: 700; color: var(--text-primary); line-height: 1.2; }
+.cap-card-sub { font-size: 10px; font-weight: 300; color: var(--text-tertiary); margin-top: 2px; }
+.cap-card-pills { display: flex; gap: 6px; flex-shrink: 0; }
+.cap-card-pill { font-size: 9px; font-weight: 700; padding: 4px 10px; border-radius: 4px; letter-spacing: 0.3px; background: rgba(15,185,177,0.08); color: var(--teal); white-space: nowrap; }
+.cap-card-chevron { font-size: 18px; color: var(--text-tertiary); flex-shrink: 0; transition: transform 0.3s ease, color 0.3s ease; }
+.cap-card.open .cap-card-chevron { transform: rotate(180deg); color: var(--teal); }
+.cap-card-body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1); }
+.cap-card.open .cap-card-body { max-height: 800px; }
+.cap-card-content {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  padding: 0 20px 20px; opacity: 0; transform: translateY(-6px);
+  transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s;
+  border-top: 1px solid var(--border-subtle); padding-top: 16px;
+}
+.cap-card.open .cap-card-content { opacity: 1; transform: none; }
+.cap-col-label { font-size: 8px; font-weight: 700; letter-spacing: 2px; color: var(--text-tertiary); text-transform: uppercase; display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
+.cap-col-label .material-icons-outlined { font-size: 13px; color: var(--teal); }
+.cap-item {
+  padding: 10px 12px; border-radius: 6px; border: 1px solid var(--border-secondary);
+  margin-bottom: 6px; transition: border-color 0.2s;
+}
+.cap-item:hover { border-color: rgba(15,185,177,0.12); }
+.cap-item-title { font-size: 11px; font-weight: 700; color: var(--text-primary); margin-bottom: 3px; }
+.cap-item-body { font-size: 10px; font-weight: 300; color: var(--text-secondary); line-height: 1.55; }
+.cap-item-tag { display: inline-block; font-size: 7px; font-weight: 700; letter-spacing: 1px; padding: 2px 7px; border-radius: 3px; margin-top: 5px; background: rgba(15,185,177,0.08); color: var(--teal); }
+
+/* ========================================
+   COLLAPSIBLE SECTIONS
+   ======================================== */
+.collapsible {
+  border: 1px solid var(--border-secondary); border-radius: 6px; margin-bottom: 6px;
+  overflow: hidden; background: var(--collapsible-bg);
+  transition: border-color 0.25s ease, background 0.4s ease;
+}
+.collapsible:hover { border-color: rgba(15,185,177,0.15); }
+.collapsible.open { border-color: rgba(15,185,177,0.2); }
+.collapsible-header {
+  display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+  cursor: pointer; user-select: none; transition: background 0.2s ease;
+}
+.collapsible-header:hover { background: var(--collapsible-hover); }
+.collapsible-header .material-icons-outlined.ch-icon { font-size: 18px; color: var(--teal); opacity: 0.7; }
+.collapsible-header .ch-title { font-size: 11px; font-weight: 700; color: var(--text-primary); flex: 1; }
+.collapsible-header .ch-sub { font-size: 9px; font-weight: 300; color: var(--text-tertiary); }
+.collapsible-header .ch-chevron { font-size: 16px; color: var(--text-tertiary); transition: transform 0.25s ease, color 0.25s ease; }
+.collapsible.open .ch-chevron { transform: rotate(180deg); color: var(--teal); }
+.collapsible-body { max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1), padding 0.25s ease; padding: 0 14px; }
+.collapsible.open .collapsible-body { max-height: 2000px; padding: 0 14px 12px; }
+.collapsible-body-inner { opacity: 0; transform: translateY(-4px); transition: opacity 0.25s ease 0.1s, transform 0.25s ease 0.1s; }
+.collapsible.open .collapsible-body-inner { opacity: 1; transform: none; }
+
+/* Collapsible variant overrides */
+.stat-grid-collapsible { padding: 0 48px 12px; }
+.stat-grid-collapsible .collapsible-header { padding: 8px 14px; }
+.pv-collapsible .collapsible-header { padding: 8px 12px; }
+.pv-collapsible .pv-row-detail { font-size: 10px; font-weight: 300; color: var(--text-secondary); line-height: 1.55; padding: 4px 0 2px 32px; }
+.d-collapsible { margin-bottom: 8px; }
+.d-collapsible .collapsible-body-inner { padding-top: 4px; }
+.pl-collapsible { margin-bottom: 6px; background: transparent; border-color: var(--border-secondary); }
+.pl-collapsible .collapsible-header { padding: 8px 10px; }
+.pl-collapsible .pl-source { border: none; padding: 4px 0; margin-bottom: 2px; }
+.gain-collapsible .collapsible-header { padding: 8px 0; border-bottom: 1px solid var(--border-secondary); border-radius: 0; }
+.gain-collapsible { border: none; border-radius: 0; background: none; }
+.gain-collapsible .collapsible-body { padding: 0; }
+.gain-collapsible.open .collapsible-body { padding: 0 0 8px; }
+
+.premier-collapsible { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 8px; margin-bottom: 8px; box-shadow: var(--shadow-sm); }
+.premier-collapsible .collapsible-header { padding: 14px 18px; }
+.premier-collapsible .pm-label { font-size: 8px; font-weight: 700; letter-spacing: 2px; color: var(--aqua); margin-bottom: 2px; }
+.premier-collapsible .pm-headline { font-size: 14px; font-weight: 700; line-height: 1.25; }
+.premier-collapsible .collapsible-body { padding: 0 18px; }
+.premier-collapsible.open .collapsible-body { padding: 0 18px 14px; }
+.announce-collapsible { border-color: rgba(15,185,177,0.1); }
+.announce-collapsible .collapsible-header { padding: 10px 14px; }
+.announce-collapsible .pa-num-inline { width: 22px; height: 22px; border-radius: 50%; background: rgba(15,185,177,0.15); border: 1px solid var(--teal); color: var(--teal); font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.why-collapsible { border: none; border-bottom: 1px solid var(--border-secondary); border-radius: 0; background: transparent; margin-bottom: 0; }
+.why-collapsible .collapsible-header { padding: 10px 0; }
+
+/* Glyph icons */
+.glyph-icon { font-size: 11px !important; vertical-align: middle; margin-right: 1px; }
+.cp-glyph .glyph-icon { font-size: 14px !important; margin-right: 0; }
+.compass-title-bar .glyph-icon { font-size: 10px !important; }
+.cv-name .glyph-icon { font-size: 12px !important; }
+.ps-prod .glyph-icon { font-size: 9px !important; }
+.pm-partner-chip .glyph-icon { font-size: 9px !important; }
+
+/* ========================================
+   SCROLLBAR
+   ======================================== */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-hover); }
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
+.animate-in { animation: fadeUp 0.5s ease forwards; }
+.animate-in-d1 { animation: fadeUp 0.5s ease 0.1s forwards; opacity: 0; }
+.animate-in-d2 { animation: fadeUp 0.5s ease 0.2s forwards; opacity: 0; }
+.animate-in-d3 { animation: fadeUp 0.5s ease 0.3s forwards; opacity: 0; }
+
+/* ========================================
+   GLOBAL TRANSITIONS for theme swap
+   ======================================== */
+.topbar, .nav-rail, .glass, .glass-subtle, .sidebar-shared, .stat-card,
+.collapsible, .cap-stats-strip, .agent-panel, .agent-step, .gt-card,
+.cap-card, .pr-infra-card, .d-callout, .partner-modal, .platform-left,
+.premier-collapsible, .pr-callout, .d-point, .cap-item, .synergy-node,
+.scenario-card, .sidebar-card, .sidebar-card-plain {
+  transition: background 0.4s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+</style>
+</head>
+<body>
+
+<div class="bg-layer"><div class="bg-grid"></div><div class="bg-radial"></div><div class="bg-scan"></div></div>
+
+<div class="shell">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="tb-brand">
+      <div class="tb-pulse"></div>
+      <span class="tb-name">HelpSeeker</span>
+    </div>
+    <div class="tb-status">GOA Overview</div>
+    <div class="tb-right">
+      <div class="tb-indicator"><span class="material-icons-outlined">shield</span> Alberta Sovereign</div>
+      <div class="tb-indicator"><span class="material-icons-outlined">hub</span> One Government, One Record</div>
+      <div class="theme-toggle" id="themeToggle" title="Toggle dark/light mode">
+        <span class="material-icons-outlined" id="themeIcon">light_mode</span>
+        <span id="themeLabel">Light</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <div class="nav-rail">
+    <div class="nav-item active" data-tab="tabHero"><span class="material-icons-outlined">school</span><span>What We're Learning</span></div>
+    <div class="nav-item" data-tab="tabCapabilities"><span class="material-icons-outlined">hub</span><span>Current Capabilities</span></div>
+    <div class="nav-item" data-tab="tabLineage"><span class="material-icons-outlined">account_tree</span><span>Ministry Lineage</span></div>
+    <div class="nav-item" data-tab="tabGraph"><span class="material-icons-outlined">query_stats</span><span>What We Built in a Day</span></div>
+    <div class="nav-item" data-tab="tabPlatform"><span class="material-icons-outlined">layers</span><span>The Platform</span></div>
+    <div class="nav-item" data-tab="tabPartnership"><span class="material-icons-outlined">handshake</span><span>Partnership</span></div>
+    <div class="nav-item" data-tab="tabKeyPoints"><span class="material-icons-outlined">star</span><span>Key Points</span></div>
+  </div>
+
+  <!-- TAB 1: WHAT WE'RE LEARNING -->
+  <div id="tabHero" class="section active" style="display:flex;flex-direction:column;">
+    <div class="hero-section">
+      <div class="hero-main">
+        <div class="hero-eyebrow animate-in">WHAT WE'RE LEARNING — COMMON CLIENTS</div>
+        <div class="hero-title animate-in-d1">We Don't Yet Know <em>How Big</em> the Problem Is</div>
+        <div class="hero-sub animate-in-d2">5% of Albertans consume 58% of social spending across nine ministries. No single ministry sees the full picture. That's just the common client problem — the real scope is likely far larger.</div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card glass animate-in collapsible open">
+          <div class="collapsible-header" style="padding:0;margin-bottom:6px;">
+            <span class="material-icons-outlined ch-icon">people</span>
+            <div style="flex:1"><div class="stat-value">225,000</div><div class="stat-label">High system users identified</div></div>
+            <span class="material-icons-outlined ch-chevron">expand_more</span>
+          </div>
+          <div class="collapsible-body" style="padding:0"><div class="collapsible-body-inner"><div class="stat-sub">Linked records across 9 ministries. First cross-ministry person-level dataset in Alberta.</div></div></div>
+        </div>
+        <div class="stat-card glass animate-in-d1 collapsible open">
+          <div class="collapsible-header" style="padding:0;margin-bottom:6px;">
+            <span class="material-icons-outlined ch-icon">payments</span>
+            <div style="flex:1"><div class="stat-value">$12.2B</div><div class="stat-label">Annual cross-ministry spending on HSUs</div></div>
+            <span class="material-icons-outlined ch-chevron">expand_more</span>
+          </div>
+          <div class="collapsible-body" style="padding:0"><div class="collapsible-body-inner"><div class="stat-sub">5% of clients → 58% of total social spend</div></div></div>
+        </div>
+        <div class="stat-card glass animate-in-d2 collapsible open">
+          <div class="collapsible-header" style="padding:0;margin-bottom:6px;">
+            <span class="material-icons-outlined ch-icon">trending_down</span>
+            <div style="flex:1"><div class="stat-value">82%</div><div class="stat-label">Per-person cost reduction (when coordinated)</div></div>
+            <span class="material-icons-outlined ch-chevron">expand_more</span>
+          </div>
+          <div class="collapsible-body" style="padding:0"><div class="collapsible-body-inner"><div class="stat-sub">PPHS &amp; HelpSeeker modelling on PPHS/HSI</div></div></div>
+        </div>
+        <div class="stat-card glass animate-in-d3 collapsible open">
+          <div class="collapsible-header" style="padding:0;margin-bottom:6px;">
+            <span class="material-icons-outlined ch-icon">savings</span>
+            <div style="flex:1"><div class="stat-value">$2.1B</div><div class="stat-label">Estimated avoidable cost</div></div>
+            <span class="material-icons-outlined ch-chevron">expand_more</span>
+          </div>
+          <div class="collapsible-body" style="padding:0"><div class="collapsible-body-inner"><div class="stat-sub">Redirectable to frontline services</div></div></div>
+        </div>
+      </div>
+      <div class="problem-strip">
+        <div class="problem-narrative">
+          <div class="pn-icon"><span class="material-icons-outlined">visibility_off</span></div>
+          <div class="pn-title">9 ministries. Zero data integration.</div>
+          <div class="pn-body">Each ministry optimizes in isolation. When a person touches health, justice, housing, child welfare, and income support simultaneously, nobody tracks the total cost or the total outcome. In the past five months, we've built the MVP infrastructure to fix it.</div>
+        </div>
+        <div class="problem-visual">
+          <div class="collapsible pv-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">local_hospital</span><div class="ch-title">Health</div><div class="ch-sub">Emergency &amp; acute care</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pv-row-detail">Emergency department visits, acute care utilization, mental health crisis services. Highest per-person cost driver for high system users.</div></div></div></div>
+          <div class="collapsible pv-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">gavel</span><div class="ch-title">Justice</div><div class="ch-sub">Corrections &amp; courts</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pv-row-detail">Corrections, court services, probation, and community supervision. Significant overlap with health and housing systems.</div></div></div></div>
+          <div class="collapsible pv-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">home</span><div class="ch-title">Housing</div><div class="ch-sub">Shelter &amp; supportive housing</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pv-row-detail">Emergency shelters, transitional housing, rent subsidies. The most visible — but not the most expensive — system touchpoint.</div></div></div></div>
+          <div class="collapsible pv-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">family_restroom</span><div class="ch-title">Children's Services</div><div class="ch-sub">Child intervention</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pv-row-detail">Child intervention, foster care, kinship care. Intergenerational patterns visible only when records are linked.</div></div></div></div>
+          <div class="collapsible pv-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">account_balance_wallet</span><div class="ch-title">Income Support</div><div class="ch-sub">AISH, IS, social assistance</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pv-row-detail">AISH, income support, barriers to employment. Often the longest-duration system interaction.</div></div></div></div>
+          <div class="collapsible pv-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">school</span><div class="ch-title">Education</div><div class="ch-sub">K-12 &amp; post-secondary</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pv-row-detail">Early indicators of system involvement. Educational outcomes correlate strongly with future system utilization.</div></div></div></div>
+          <div class="collapsible pv-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">diversity_3</span><div class="ch-title">Community &amp; Social Services</div><div class="ch-sub">FCSS, PDD, disability</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pv-row-detail">Community-based supports, persons with developmental disabilities, family and community support services.</div></div></div></div>
+          <div class="collapsible pv-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">psychology</span><div class="ch-title">Mental Health &amp; Addiction</div><div class="ch-sub">Treatment &amp; recovery</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pv-row-detail">Mental health treatment, addiction recovery, supervised consumption. The most acute crisis point for high system users.</div></div></div></div>
+          <div class="collapsible pv-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">groups_3</span><div class="ch-title">Indigenous Relations</div><div class="ch-sub">FNMI-specific programs</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pv-row-detail">First Nations, Métis, and Inuit-specific programs and services. Critical data sovereignty considerations under OCAP principles.</div></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: CAPABILITIES -->
+  <div id="tabCapabilities" class="section">
+    <div class="cap-section">
+      <div class="cap-hero"><div class="cap-eyebrow">CURRENT CAPABILITIES — OPEN DATA PROOF</div><div class="cap-title">Four Open Datasets. One Knowledge Graph. Built in a Day.</div><div class="cap-summary">Everything below was built using only publicly available data — GOA grant disclosures, CRA charity filings, Elections Alberta contributions, and ministry restructuring records. No sensitive data. No privacy risk. Proof of architecture.</div></div>
+      <div class="cap-stats-strip" id="capStats"></div>
+      <div class="cap-cards-area" id="capCards"></div>
+    </div>
+  </div>
+
+  <!-- TAB 3: LINEAGE -->
+  <div id="tabLineage" class="section">
+    <div style="flex:1;display:flex;min-height:0;">
+      <div class="sidebar-shared" id="lineageCards"><div class="sidebar-label">Findings</div></div>
+      <div class="detail-panel" id="lineageDetail"></div>
+    </div>
+  </div>
+
+  <!-- TAB 4: GRAPH -->
+  <div id="tabGraph" class="section">
+    <div class="graph-wrap">
+      <div class="graph-top" id="graphTop"></div>
+      <div class="graph-body">
+        <div class="sidebar-shared" id="scenarioCards" style="flex:0 0 220px;"><div class="sidebar-label">Scenarios</div></div>
+        <div class="agent-panel" id="agentOutput"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 5: PLATFORM -->
+  <div id="tabPlatform" class="section">
+    <div class="platform-section">
+      <div class="platform-hero"><div class="ph-eyebrow">THE KOMPAS STACK</div><div class="ph-title">What We've Built — And What It Scales To</div><div class="ph-sub">Four products, one ontology, one neural network. Currently running on open data at ~$5/hour. Sovereign infrastructure replaces the Microsoft dependency and enables sensitive data integration.</div></div>
+      <div class="platform-body"><div class="platform-left" id="platformLeft"></div><div class="platform-right" id="platformRight"></div></div>
+    </div>
+  </div>
+
+  <!-- TAB 6: PARTNERSHIP -->
+  <div id="tabPartnership" class="section">
+    <div class="partner-section">
+      <div class="partner-body">
+        <div class="partner-stack-col" id="partnerStack">
+          <div class="synergy-container">
+            <div class="synergy-loop">
+              <svg class="synergy-svg" id="synergySvg"></svg>
+              <div class="synergy-node top"><span class="material-icons-outlined">apps</span><div class="sn-name">HelpSeeker</div><div class="sn-role">Platform · Ontology · Applications</div></div>
+              <div class="synergy-node center"><span class="material-icons-outlined">account_balance</span><div class="sn-name">Gov of Alberta</div><div class="sn-role">Anchor client · Data owner</div></div>
+              <div class="synergy-node bl"><span class="material-icons-outlined">cloud</span><div class="sn-name">DenvrData</div><div class="sn-role">Sovereign compute · AI cloud</div></div>
+              <div class="synergy-node br"><span class="material-icons-outlined">biotech</span><div class="sn-name">AMII</div><div class="sn-role">AI research · Advanced models</div></div>
+            </div>
+            <button class="synergy-btn" onclick="openPartnerModal()"><span class="material-icons-outlined">open_in_new</span> View Value Proposition</button>
+          </div>
+          <div id="partnerStackLayers"></div>
+        </div>
+        <div class="partner-detail-col" id="partnerDetail"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 7: KEY POINTS -->
+  <div id="tabKeyPoints" class="section">
+    <div class="premier-section" id="keyPointsContent"></div>
+  </div>
+
+</div>
+
+<!-- Partner Modal -->
+<div class="partner-modal-overlay" id="partnerModal">
+  <div class="partner-modal">
+    <button class="pm-close" onclick="this.closest('.partner-modal-overlay').classList.remove('open')">&times;</button>
+    <div class="pm-modal-title"><span class="material-icons-outlined">hub</span> Partnership Structure</div>
+    <div id="partnerModalContent"></div>
+  </div>
+</div>
+
+<script>
+// ========================================
+// THEME TOGGLE
+// ========================================
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = document.getElementById('themeIcon');
+const themeLabel = document.getElementById('themeLabel');
+const html = document.documentElement;
+
+// Check localStorage for saved preference
+const savedTheme = localStorage.getItem('hs-theme') || 'dark';
+html.setAttribute('data-theme', savedTheme);
+updateToggleUI(savedTheme);
+
+themeToggle.addEventListener('click', () => {
+  const current = html.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('hs-theme', next);
+  updateToggleUI(next);
+});
+
+function updateToggleUI(theme) {
+  if (theme === 'dark') {
+    themeIcon.textContent = 'light_mode';
+    themeLabel.textContent = 'Light';
+  } else {
+    themeIcon.textContent = 'dark_mode';
+    themeLabel.textContent = 'Dark';
+  }
+}
+
+// ========================================
+// COLLAPSIBLE LOGIC
+// ========================================
+document.addEventListener('click', function(e) {
+  const header = e.target.closest('.collapsible-header');
+  if (!header) return;
+  const collapsible = header.closest('.collapsible');
+  if (!collapsible) return;
+  // For cap-card, use different logic
+  if (collapsible.classList.contains('cap-card')) return;
+  collapsible.classList.toggle('open');
+});
+
+// Cap-card accordion
+document.addEventListener('click', function(e) {
+  const header = e.target.closest('.cap-card-header');
+  if (!header) return;
+  const card = header.closest('.cap-card');
+  if (!card) return;
+  card.classList.toggle('open');
+});
+
+// ========================================
+// DATA
+// ========================================
+const CAPABILITIES = [
+  { icon:'link', iconClass:'linked', title:'What We\'ve Linked', sub:'Open data · knowledge graph',
+    pills:['1,302 ORGS','14,406 DIRECTORS'],
+    left:{ label:'Linked to date', icon:'link',
+      points:[
+        { title:'All Alberta charities', body:'Every GOA grant recipient matched to CRA T3010 charity filings across all of Canada.' },
+        { title:'14,406 directors', body:'Board composition extracted from CRA filings. Cross-referenced against political donor records.' },
+        { title:'501,038 grant records', body:'GOA grant disclosures across all ministries and all political eras.' },
+        { title:'23,203 political contributions', body:'Elections Alberta donor disclosures linked to director identities.' },
+        { title:'Ministry lineage', body:'74 transformation events. 51 ministry nodes. Full genealogy across 3 governments. Spun up in hours.' }
+      ]},
+    right:{ label:'Infrastructure', icon:'settings',
+      items:[
+        { name:'Knowledge Graph', body:'Four node types (Organization, Director, Ministry, Political Party) with typed relationships. Pattern-matchable in milliseconds.', tag:'GRAPH DB' },
+        { name:'Four-era partitioning', body:'Every grant tagged to political era. Enables symmetry testing across governments.', tag:'TEMPORAL' },
+        { name:'Risk detection', body:'348 single-point-of-failure edges identified. All from open data, limited to open data.', tag:'NETWORK' }
+      ]}
+  },
+  { icon:'swap_horiz', iconClass:'insights', title:'Insights', sub:'4,140 donor-director matches',
+    pills:['345 NEXUS ORGS','$165.2B EXPOSURE'],
+    left:{ label:'What we found', icon:'search',
+      points:[
+        { title:'4,140 matches', body:'Political donors who also sit on GOA-funded charity boards.' },
+        { title:'345 organizations (27%)', body:'Have at least one board member who is also a political donor.' },
+        { title:'$165.2B in grant exposure', body:'Total GOA funding flowing to organizations with donor-directors.' }
+      ]},
+    right:{ label:'Symmetry test', icon:'balance',
+      items:[
+        { name:'NDP donor-directors: 140', body:'Larger match count driven by bigger small-donor pool during 2015–2019.', tag:'NDP' },
+        { name:'UCP donor-directors: 69', body:'Fewer matches but higher grant exposure per org ($155.6B vs $6.6B).', tag:'UCP' },
+        { name:'Structural, not partisan', body:'Proportional rates when normalized for donor base size. Alberta\'s small civic landscape — engaged people wear many hats.', tag:'FINDING' }
+      ]}
+  },
+  { icon:'notification_important', iconClass:'risk', title:'Risk Signals', sub:'Signals that merit preventative policy',
+    pills:['348 SIGNALS','$172M MAX'],
+    left:{ label:'What the signals mean', icon:'error_outline',
+      points:[
+        { title:'372 directors as single connection points', body:'The only human governance link between two otherwise separate organizations. If they leave, governance visibility disappears.' },
+        { title:'Succession risk, not corruption', body:'These are structural signals that merit preventative policy considerations — not allegations.' },
+        { title:'Invisible to conventional audit', body:'Standard compliance examines organizations in isolation. Network analysis reveals the connective tissue between them.' }
+      ]},
+    right:{ label:'Examples', icon:'person_pin',
+      items:[
+        { name:'Jason Pincock (NDP donor)', body:'Only link between Little Warriors and NAIT. Combined GOA funding: $172M. If he leaves both boards, that governance connection silently breaks.', tag:'HIGH EXPOSURE' },
+        { name:'Chris Lee (PC donor)', body:'Bridges Meadows Christian and Mount Royal University. Combined grant exposure: $123M. Different party, same structural risk.', tag:'HIGH EXPOSURE' }
+      ]}
+  },
+  { icon:'lightbulb', iconClass:'action', title:'Actionable Insights', sub:'What this enables now',
+    pills:['GOVERNANCE','FISCAL'],
+    left:{ label:'What this is — and isn\'t', icon:'info',
+      points:[
+        { title:'Not a scandal detector', body:'No smoking gun. But there is signal — particularly in the NDP era — that merits preventative policy considerations.' },
+        { title:'Signal, not allegation', body:'The NDP era showed higher clustering concentration (10.76× disparity vs UCP\'s 2.78×). This is structural evidence that warrants proactive governance measures.' }
+      ]},
+    right:{ label:'What we can implement', icon:'check_circle',
+      items:[
+        { name:'Conflict-of-interest protocols', body:'Evidence-informed rather than reactive. Board composition data available before grant decisions are made.', tag:'GOVERNANCE' },
+        { name:'Succession planning', body:'Identify single-connection directors before they leave. Prevent invisible governance gaps.', tag:'RISK MGMT' },
+        { name:'Network-aware portfolio monitoring', body:'If a clustered org fails, contagion risk propagates through shared director networks. Monitor it proactively.', tag:'FISCAL' }
+      ]}
+  }
+];
+
+const LINEAGE = [
+  { type:'executive', typeLabel:'Core Finding', name:'Restructuring Effect', desc:'16 NDP restructurings → 10.76× disparity', title:'Ministry Restructuring Created Concentration Risk', body:'Through the capabilities analysis, we found something deeper. Between 2015 and 2019, the NDP government executed 16 ministry restructuring events. Restructured ministries disbursed $11.7B in grants — nearly triple the $4.0B through the same channels during the prior PC era. The clustering pattern surfaced because of the knowledge graph.', actions:[{title:'Clustered vs non-clustered',body:'Organizations sharing directors with other grant recipients averaged $32.6M in NDP-era funding vs $3.0M for non-clustered. 10.76× disparity. Confirmed at median (6.21×) — not outlier-driven.'},{title:'UCP baseline: 2.78×',body:'Same cluster advantage exists under UCP but at 2.78×. NDP disparity was 3.87 times larger than UCP baseline.'},{title:'Statistical confirmation',body:'Mann-Whitney U (p = 2.80e-06). Kolmogorov-Smirnov (p = 6.99e-08). This is not noise.'}], premier:'The explanation is structural, not corrupt. When ministries reorganize, existing relationships carry forward. Well-connected organizations navigate new structures more effectively. The result is a portfolio vulnerability — and only this kind of analysis unearths the deeper root causes.' },
+  { type:'operational', typeLabel:'Data Point', name:'The Concentration', desc:'106 orgs captured 30% of NDP pipeline', title:'3.8% of Organizations Captured $3.5B', body:'106 clustered organizations — just 3.8% of matched orgs — captured $3.5B, nearly 30% of the NDP-era grant pipeline. This concentration creates contagion risk through shared director networks.', actions:[{title:'74 ministry transformations',body:'Renames, merges, splits across three governments. Each transformation breaks the funding trail in current systems and processes. In a knowledge graph, lineage is traceable.'},{title:'Same money, different names',body:'Children\'s Services → Children and Family Services. Aboriginal Relations → Indigenous Relations. The money flows continuously — only the ministry label changes.'},{title:'Invisible to current systems',body:'In current databases and processes, a renamed ministry appears as two separate entities. There is no source of truth that preserves continuity. Until now.'}], premier:'We can now trace every dollar through every ministry name change, every restructuring, every era. No other system in Alberta — or any Canadian province — has this capability.' },
+  { type:'legislative', typeLabel:'The Case', name:'Why You Need the Neural Network', desc:'Why this requires a knowledge graph', title:'Why You Need a Neural Network — Not Flat Databases', body:'The four-domain traversal — ministry events, grant records, charity filings, director networks — requires pattern matching across four node types and three relationship types simultaneously. Current joined-up databases can\'t do this. This neural network becomes the source of truth — and that is extremely powerful. It has to be contained. It has to be sovereign.', actions:[{title:'Speed of access',body:'Queries that would take overnight batch runs in current systems complete in milliseconds. Real-time intelligence, not stale reports.'},{title:'Source of truth',body:'A single view across all ministries, all organizations, all eras. Sequestered so only the right people get access.'},{title:'Over 10,000 datasets exist',body:'We\'re only working with 4 open datasets today. The potential scale includes all government data. Already running compute at ~$5/hour — on open data alone, on Microsoft infrastructure we can\'t use for anything sensitive.'}], premier:'This neural network is our most precious resource. The way you structure it determines the questions you can ask and answer. To keep it safe, it needs to be on the right infrastructure — sovereign, Albertan, maintained by people who know what they\'re doing. This is where DenvrData comes in.' },
+  { type:'executive', typeLabel:'Strategic', name:'What We Can Do Now', desc:'Sentinels, not just portfolio monitoring', title:'From Anecdote to Evidence to Scale', body:'We can connect data into the neural network properly so that we\'re not doing garbage-in, garbage-out. The majority of the work is shredding through the data — for instance, one women\'s shelter domestic violence grant alone contained 9,000 files for roughly $50M out of the billions flowing into the social sector. The infrastructure handles that complexity.', actions:[{title:'Pre-grant network screening',body:'Check applicant board composition against the knowledge graph before awarding grants. Mandatory, evidence-based, automated.'},{title:'Continuous monitoring',body:'Real-time alerts when key directors resign, when concentration exceeds thresholds. If we\'re funding them, we can put trackers on them so we know what\'s happening.'},{title:'Cross-era accountability',body:'Track outcomes across eras. Same org, same programs, different governments. Driven by data, not politics. Ensuring the public good is served regardless of who is in power.'}], premier:'The argument isn\'t fiscal exposure — it\'s the ability to do your job as government. You need the infrastructure to handle the complexities of the day. We\'ve built it. We\'ve proven it works. And it enables you to act.' }
+];
+
+const TOP_NUMBERS = [
+  { value:'1,302', label:'Organizations', sub:'GOA + CRA matched', icon:'business' },
+  { value:'14,406', label:'Directors mapped', sub:'CRA filings', icon:'badge' },
+  { value:'74', label:'Transformations', sub:'3 govts, 10 years', icon:'transform' },
+  { value:'4,140', label:'Donor-directors', sub:'Crosswalk', icon:'how_to_vote' },
+  { value:'$165.2B', label:'Grant exposure', sub:'345 nexus orgs', icon:'account_balance' }
+];
+
+const SCENARIOS = [
+  { name:'Boyle Street Co-op', desc:'Single-org full picture', meta:'Directors · Ministries · Eras', steps:[{action:'Query Executed',icon:'terminal',detail:'MATCH Boyle Street Community Services Co-op with all connected Directors and Ministries across all eras. One query returns the full governance and funding ecosystem.',tag:'query',tagLabel:'Knowledge Graph',metric:'Full org view in milliseconds'},{action:'Governance Visible',icon:'visibility',detail:'Directors identified from CRA T3010 filings. Board composition visible alongside funding relationships — which ministries fund them, how much, under which government.',tag:'finding',tagLabel:'Finding',metric:'Directors, funding ministries, political eras'},{action:'Era Comparison',icon:'compare',detail:'Same organization, same services, but funding levels shift across governments. The graph shows continuity where current systems show broken records.',tag:'insight',tagLabel:'Insight',metric:'Continuous funding trail across eras'},{action:'Current Systems',icon:'storage',detail:'In flat databases: separate tables with no link between eras. In the knowledge graph: one query, milliseconds, full visual network.',tag:'finding',tagLabel:'Comparison',metric:'One query vs fragmented records'}], decision:'One organization, its full governance network, its complete funding history across eras. The system that produces this view is the same one that scales to 1,302 organizations — and eventually to all of government.' },
+  { name:'The Money Trail', desc:'Donor → Party → Board → Ministry', meta:'4 parties · all eras', steps:[{action:'Four-Domain Query',icon:'route',detail:'Every political donor who sits on a board, which party they donated to, which ministry funded their org, how much, and under which government. One pattern match.',tag:'query',tagLabel:'Knowledge Graph',metric:'4 node types, 3 relationship types'},{action:'Party Column',icon:'how_to_vote',detail:'NDP, UCP, PC, Wildrose — all four parties appear. This is not a partisan issue. Donor-directors exist across the entire political spectrum.',tag:'finding',tagLabel:'Finding',metric:'4 parties represented'},{action:'Era Column',icon:'history',detail:'Same directors appear across multiple eras. The people don\'t change. The money doesn\'t change. Only the ministry names change.',tag:'insight',tagLabel:'Insight',metric:'Structural persistence across governments'},{action:'Current Systems',icon:'compare_arrows',detail:'In current systems this query would need a custom pipeline, multiple table joins, and an overnight batch run. In the knowledge graph: milliseconds.',tag:'finding',tagLabel:'Comparison',metric:'Overnight → milliseconds'}], decision:'Party ← donated ← Director → sits_on → Org ← funded ← Ministry. Only the ministry name changes. The people, the money, and the relationships persist. That is the structural finding.' },
+  { name:'Risk Detection', desc:'Single points of governance failure', meta:'348 risk signals · $172M max', steps:[{action:'Signal Detection',icon:'alt_route',detail:'Identify directors who are the only human connection between two otherwise separate organizations — single points of governance failure.',tag:'query',tagLabel:'Knowledge Graph',metric:'348 risk signals identified'},{action:'Jason Pincock',icon:'person_pin_circle',detail:'NDP donor. Only link between Little Warriors and NAIT. Combined GOA funding: $172M. If he leaves both boards, governance visibility between these organizations disappears.',tag:'risk',tagLabel:'Risk Signal',metric:'$172M combined grant exposure'},{action:'Chris Lee',icon:'person_pin_circle',detail:'PC donor. Links Meadows Christian and Mount Royal University. Combined grant exposure: $123M. Different party, same structural risk.',tag:'risk',tagLabel:'Risk Signal',metric:'$123M combined grant exposure'},{action:'Succession Gap',icon:'warning',detail:'372 directors like this. Nobody in government is tracking these connections. When one leaves, the governance link between funded organizations silently breaks.',tag:'insight',tagLabel:'Insight',metric:'Invisible failure points at scale'}], decision:'Nobody in government is monitoring these connections. These represent succession risk at scale — and the knowledge graph is the only tool that sees it. This is preventable if you have the infrastructure.' },
+  { name:'Ministry Genealogy', desc:'74 transformations, 3 governments', meta:'51 ministries · 10 years', steps:[{action:'Lineage Tree',icon:'account_tree',detail:'Full ministry genealogy: every RENAME, MERGE, SPLIT across three governments. 74 transformation arrows connecting 51 ministry nodes.',tag:'query',tagLabel:'Knowledge Graph',metric:'74 BECAME relationships'},{action:'The Rename Problem',icon:'edit_note',detail:'Aboriginal Relations → Indigenous Relations. Children\'s Services → Children and Family Services. Agriculture and Rural Development → Agriculture and Forestry → Agriculture and Irrigation.',tag:'finding',tagLabel:'Finding',metric:'Every rename breaks current trails'},{action:'The Key Insight',icon:'bolt',detail:'Same org, same money, different ministry name. In current systems: two unconnected rows. In the knowledge graph: continuous lineage preserved.',tag:'insight',tagLabel:'Insight',metric:'Source of truth across restructuring'},{action:'Total Scope',icon:'hub',detail:'74 transformations. 1,302 orgs. 14,406 directors. 51 ministries. 10 years. One neural network. One query. Milliseconds.',tag:'savings',tagLabel:'Scale',metric:'First lineage audit of Alberta\'s grants'}], decision:'Every time a ministry is renamed, the funding trail breaks in current systems. In the knowledge graph, we trace it. 74 transformations, 10 years, one query. This is the capability gap this infrastructure closes.' }
+];
+
+const KEY_CARDS = [
+  { label:'Today\'s Headline', headline:'In One Day, We Mapped Alberta\'s Governance Network', body:'In a single day, we linked <strong>political contributions</strong>, <strong>charity board composition</strong>, <strong>grant disclosures</strong>, and <strong>ministry lineage</strong> into a single queryable knowledge graph. Open data only. Four datasets. One neural network.' },
+  { label:'In One Year', headline:'Follow the Money to Every Client, Every Contract, Every Outcome', body:'With sovereign infrastructure: link <strong>common client records</strong>, <strong>physician billing</strong>, and <strong>sub-recipient reporting</strong>. Real-time cross-ministry visibility. A source of truth for every dollar spent in the social safety net.' },
+  { label:'In Three Years', headline:'Alberta Sets the Standard for Data-Driven Government in Canada', body:'All social safety net ministries integrated. <strong>Real-time coordination</strong>. <strong>Outcome accountability</strong>. An exportable model that Alberta sells to every other province. Sovereign to Alberta — built here, owned here.' }
+];
+
+const KEY_ANNOUNCEABLES = [
+  { title:'Cross-Ministry Coordination Mandate', body:'Any Albertan costing >$50K/yr across multiple ministries receives a coordinated care plan within 14 days — not separate responses from separate ministries.' },
+  { title:'Mandatory Pre-Grant Network Screening', body:'Before awarding grants, screen applicant board composition against the knowledge graph. Identify concentration risk and governance gaps before funding decisions. Policy, not optional.' },
+  { title:'Ministry Source of Truth', body:'Every dollar traceable through every ministry name change and restructuring. A single source of truth on where money goes. Published as open data.' },
+  { title:'Sovereign Infrastructure — Software to GPUs', body:'Alberta\'s social data on Canadian-owned, Albertan-operated infrastructure. From the applications to the compute. Replace foreign CRMs like Salesforce with Albertan alternatives. No American cloud. No foreign jurisdiction.' },
+  { title:'Outcome Accountability', body:'Standardized outcome reporting tied to spending. Track whether interventions work across administrations. Ensure the public good is driven by data, not politics.' }
+];
+
+const KEY_TIMELINE = [
+  { when:'Next 3 months', what:'<strong>Network-aware grant screening</strong> — knowledge graph screening integrated into the grant award process. Implementable now.' },
+  { when:'Q3 2026', what:'<strong>Cross-ministry coordination</strong> — mandatory case conferences for high system users. Operational within 90 days.' },
+  { when:'Q4 2026', what:'<strong>Legislative amendments</strong> — mandate cross-ministry data linkage for coordinated service delivery.' },
+  { when:'Q1 2027', what:'<strong>Data sovereignty directive</strong> — classify social data as sovereignty-sensitive. Begin migration to Albertan infrastructure.' },
+  { when:'Q2 2027', what:'<strong>Transparency portal</strong> — any person can look up any organization: how much from which ministry, for what, what outcomes, how many people served. First in Canada.' },
+  { when:'2027–28', what:'<strong>Full operational capability</strong> — all social safety net ministries integrated. Real-time coordination. Data-driven governance at scale.' }
+];
+
+// ========================================
+// INIT FUNCTIONS
+// ========================================
+function initCapabilities() {
+  const stats = document.getElementById('capStats');
+  stats.innerHTML = `<div class="cap-stat"><div class="cap-stat-value">4</div><div class="cap-stat-label">Open datasets linked</div></div><div class="cap-stat"><div class="cap-stat-value">1,302</div><div class="cap-stat-label">Organizations matched</div></div><div class="cap-stat"><div class="cap-stat-value">14,406</div><div class="cap-stat-label">Directors mapped</div></div><div class="cap-stat"><div class="cap-stat-value">$165.2B</div><div class="cap-stat-label">Grant exposure traced</div></div>`;
+  const area = document.getElementById('capCards');
+  CAPABILITIES.forEach((c, i) => {
+    const card = document.createElement('div');
+    card.className = 'cap-card' + (i===0?' open':'');
+    card.innerHTML = `<div class="cap-card-header"><div class="cap-card-icon ${c.iconClass}"><span class="material-icons-outlined">${c.icon}</span></div><div class="cap-card-info"><div class="cap-card-title">${c.title}</div><div class="cap-card-sub">${c.sub}</div></div><div class="cap-card-pills">${c.pills.map(p=>`<span class="cap-card-pill">${p}</span>`).join('')}</div><span class="material-icons-outlined cap-card-chevron">expand_more</span></div><div class="cap-card-body"><div class="cap-card-content"><div><div class="cap-col-label"><span class="material-icons-outlined">${c.left.icon}</span> ${c.left.label}</div>${c.left.points.map(p=>`<div class="cap-item"><div class="cap-item-title">${p.title}</div><div class="cap-item-body">${p.body}</div></div>`).join('')}</div><div><div class="cap-col-label"><span class="material-icons-outlined">${c.right.icon}</span> ${c.right.label}</div>${c.right.items.map(item=>`<div class="cap-item"><div class="cap-item-title">${item.name}</div><div class="cap-item-body">${item.body}</div><div class="cap-item-tag">${item.tag}</div></div>`).join('')}</div></div></div>`;
+    area.appendChild(card);
+  });
+}
+
+function initLineage() {
+  const el = document.getElementById('lineageCards');
+  LINEAGE.forEach((p, i) => {
+    const card = document.createElement('div');
+    card.className = 'sidebar-card-plain' + (i===0?' active':'');
+    card.innerHTML = `<div class="scp-type ${p.type}">${p.typeLabel}</div><div class="sc-title">${p.name}</div><div class="sc-sub">${p.desc}</div>`;
+    card.onclick = () => selectLineage(i);
+    el.appendChild(card);
+  });
+  selectLineage(0);
+}
+function selectLineage(idx) {
+  document.querySelectorAll('#lineageCards .sidebar-card-plain').forEach((c,i) => c.classList.toggle('active', i===idx));
+  const p = LINEAGE[idx];
+  document.getElementById('lineageDetail').innerHTML = `<div class="d-title">${p.title}</div><div class="d-type-tag ${p.type}">${p.typeLabel}</div><div class="collapsible open" style="border:none;background:none;"><div class="collapsible-header" style="padding:0;margin:12px 0 6px;"><span class="material-icons-outlined ch-icon">description</span><div class="ch-title" style="font-size:8px;font-weight:700;letter-spacing:2px;color:var(--text-tertiary);text-transform:uppercase;">Context</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body" style="padding:0;"><div class="collapsible-body-inner"><div class="d-body">${p.body}</div></div></div></div><div class="collapsible open" style="border:none;background:none;"><div class="collapsible-header" style="padding:0;margin:12px 0 6px;"><span class="material-icons-outlined ch-icon">science</span><div class="ch-title" style="font-size:8px;font-weight:700;letter-spacing:2px;color:var(--text-tertiary);text-transform:uppercase;">Evidence</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body" style="padding:0;"><div class="collapsible-body-inner">${p.actions.map(a=>`<div class="collapsible d-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">chevron_right</span><div class="ch-title">${a.title}</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="d-action-body">${a.body}</div></div></div></div>`).join('')}</div></div></div><div class="d-callout"><div class="d-callout-label">BOTTOM LINE</div><div class="d-callout-text">${p.premier}</div></div>`;
+}
+
+function initGraph() {
+  const top = document.getElementById('graphTop');
+  TOP_NUMBERS.forEach(n => { top.innerHTML += `<div class="gt-card"><div class="gt-icon"><span class="material-icons-outlined">${n.icon}</span></div><div class="gt-value">${n.value}</div><div class="gt-label">${n.label}</div><div class="gt-sub">${n.sub}</div></div>`; });
+  const el = document.getElementById('scenarioCards');
+  SCENARIOS.forEach((s, i) => {
+    const card = document.createElement('div');
+    card.className = 'scenario-card';
+    card.innerHTML = `<div class="scenario-name">${s.name}</div><div class="scenario-desc">${s.desc}</div><div class="scenario-meta"><span class="material-icons-outlined">data_object</span> ${s.meta}</div>`;
+    card.onclick = () => runScenario(i);
+    el.appendChild(card);
+  });
+}
+function runScenario(idx) {
+  document.querySelectorAll('.scenario-card').forEach((c,i) => c.classList.toggle('active', i===idx));
+  const s = SCENARIOS[idx];
+  const out = document.getElementById('agentOutput');
+  out.innerHTML = '';
+  s.steps.forEach((step, i) => {
+    setTimeout(() => {
+      const div = document.createElement('div');
+      div.className = 'agent-step';
+      div.innerHTML = `<div class="step-header"><div class="step-action-text"><span class="material-icons-outlined">${step.icon}</span> ${step.action}</div><span class="step-tag ${step.tag}">${step.tagLabel}</span></div><div class="step-detail">${step.detail}</div><div class="step-metric"><span class="material-icons-outlined">analytics</span> ${step.metric}</div>`;
+      out.appendChild(div);
+      if (i === s.steps.length - 1) {
+        setTimeout(() => {
+          const dec = document.createElement('div');
+          dec.className = 'agent-decision';
+          dec.innerHTML = `<div class="ad-label">DECISION INTELLIGENCE</div><div class="ad-text">${s.decision}</div>`;
+          out.appendChild(dec);
+        }, 200);
+      }
+    }, i * 250);
+  });
+}
+
+function initPlatform() {
+  const left = document.getElementById('platformLeft');
+  left.innerHTML = `<div class="pl-section-label"><span class="material-icons-outlined">check_circle</span> Live Today</div><div class="collapsible pl-collapsible open"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">public</span><div class="ch-title">GOA Grant Disclosures</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pl-source live" style="border:none;padding:4px 0;"><div><div class="pl-src-desc">501,038 records across all ministries and political eras.</div><span class="pl-src-tag pl-tag-live">LIVE</span></div></div></div></div></div><div class="collapsible pl-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">account_balance</span><div class="ch-title">CRA T3010 Filings</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pl-source live" style="border:none;padding:4px 0;"><div><div class="pl-src-desc">All registered charities, directors, financials.</div><span class="pl-src-tag pl-tag-live">LIVE</span></div></div></div></div></div><div class="collapsible pl-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">how_to_vote</span><div class="ch-title">Elections Alberta</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pl-source live" style="border:none;padding:4px 0;"><div><div class="pl-src-desc">23,203 political contribution records.</div><span class="pl-src-tag pl-tag-live">LIVE</span></div></div></div></div></div><div class="collapsible pl-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">account_tree</span><div class="ch-title">Ministry Lineage</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pl-source live" style="border:none;padding:4px 0;"><div><div class="pl-src-desc">74 transformations, 51 nodes, 3 governments.</div><span class="pl-src-tag pl-tag-live">LIVE</span></div></div></div></div></div><div class="pl-section-label"><span class="material-icons-outlined">schedule</span> Next (with sovereign infra)</div><div class="collapsible pl-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">badge</span><div class="ch-title">Common Client Records</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pl-source future" style="border:none;padding:4px 0;"><div><div class="pl-src-desc">225,000 high system users across 9 ministries.</div><span class="pl-src-tag pl-tag-next">NEXT</span></div></div></div></div></div><div class="collapsible pl-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">medical_services</span><div class="ch-title">Physician Billing</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pl-source future" style="border:none;padding:4px 0;"><div><div class="pl-src-desc">$7B annual spend. Fee code analysis across provinces.</div><span class="pl-src-tag pl-tag-next">NEXT</span></div></div></div></div></div>`;
+
+  const right = document.getElementById('platformRight');
+  right.innerHTML = `<div class="compass-diagram"><div class="compass-title-bar"><span class="material-icons-outlined glyph-icon">explore</span> KOMPAS STACK ARCHITECTURE</div><div class="compass-outer"><div class="compass-ring">✵ KOMPAS — Unified Ontology Layer (KGL v1.4)<div class="ring-sub">53 canonical nodes · Semasiographic · Cross-domain</div></div><div class="compass-flow"><span class="material-icons-outlined compass-arrow">south</span><span class="material-icons-outlined compass-arrow">south</span><span class="material-icons-outlined compass-arrow">south</span></div><div class="compass-products"><div class="compass-product"><div class="cp-glyph"><span class="material-icons-outlined glyph-icon">explore</span></div><div class="cp-name">✶ Navigi</div><div class="cp-role">Service navigation · Heart</div></div><div class="compass-product"><div class="cp-glyph"><span class="material-icons-outlined glyph-icon">assignment</span></div><div class="cp-name">✷ Mareto</div><div class="cp-role">Case management · Body</div></div><div class="compass-product"><div class="cp-glyph"><span class="material-icons-outlined glyph-icon">insights</span></div><div class="cp-name">✸ Karto</div><div class="cp-role">Analytics · Mind</div></div></div><div class="compass-flow"><span class="material-icons-outlined compass-arrow">south</span><span class="material-icons-outlined compass-arrow">south</span><span class="material-icons-outlined compass-arrow">south</span></div><div class="compass-volto"><span class="material-icons-outlined cv-icon">scatter_plot</span><div class="cv-name"><span class="material-icons-outlined glyph-icon">scatter_plot</span> ✹ Volto</div><div class="cv-role">Knowledge graph intelligence · Spirit</div></div></div></div><div class="pl-section-label"><span class="material-icons-outlined">domain</span> Infrastructure Partners</div><div class="pr-infra-card"><div class="pr-infra-name">HelpSeeker Technologies</div><div class="pr-infra-role">Platform, ontology (KGL), entity resolution, all four products. The application layer that government and citizens interact with.</div><div class="pr-infra-tag">APPLICATION + ONTOLOGY</div></div><div class="pr-infra-card"><div class="pr-infra-name">DenvrData</div><div class="pr-infra-role">Albertan-owned sovereign compute. No US cloud dependency. The infrastructure that makes it safe to put sensitive data into the neural network.</div><div class="pr-infra-tag">SOVEREIGN COMPUTE</div></div><div class="pr-infra-card"><div class="pr-infra-name">AMII</div><div class="pr-infra-role">Alberta's AI research capacity. Predictive algorithms, entity resolution, advanced models. The IP Alberta can export.</div><div class="pr-infra-tag">AI RESEARCH</div></div><div class="pr-scale-grid"><div class="pr-scale-card"><div class="pr-scale-value">~$5/hr</div><div class="pr-scale-label">Current compute cost</div><div class="pr-scale-sub">Open data only</div></div><div class="pr-scale-card"><div class="pr-scale-value">4</div><div class="pr-scale-label">Datasets linked</div><div class="pr-scale-sub">Of 10,000+ available</div></div><div class="pr-scale-card"><div class="pr-scale-value">ms</div><div class="pr-scale-label">Query response</div><div class="pr-scale-sub">vs overnight batch</div></div></div>`;
+}
+
+function initPartnership() {
+  const stack = document.getElementById('partnerStackLayers');
+  stack.innerHTML = `<div class="collapsible ps-layer" style="padding:0;"><div class="collapsible-header" style="padding:10px 14px;"><div style="flex:1"><div class="ps-layer-bar app"><span class="material-icons-outlined">apps</span> Application Layer</div><div class="ps-who">HelpSeeker</div></div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body" style="padding:0 14px;"><div class="collapsible-body-inner"><div class="ps-desc">Navigi, Mareto, Karto — the products that government staff and citizens actually use. Case management, service navigation, analytics. Built on the common ontology.</div><div class="ps-products"><span class="ps-prod"><span class="material-icons-outlined glyph-icon">explore</span> Navigi</span><span class="ps-prod"><span class="material-icons-outlined glyph-icon">assignment</span> Mareto</span><span class="ps-prod"><span class="material-icons-outlined glyph-icon">insights</span> Karto</span><span class="ps-prod">Entity Resolution</span></div></div></div></div><div class="collapsible ps-layer" style="padding:0;"><div class="collapsible-header" style="padding:10px 14px;"><div style="flex:1"><div class="ps-layer-bar semantic"><span class="material-icons-outlined">schema</span> Semantic Layer</div><div class="ps-who">HelpSeeker</div></div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body" style="padding:0 14px;"><div class="collapsible-body-inner"><div class="ps-desc">KGL v1.4 — the Kompas Glyph Language. 53 canonical nodes. Semasiographic ontology that means the same thing regardless of which system generated the data. The common language.</div><div class="ps-products"><span class="ps-prod">KGL v1.4</span><span class="ps-prod">53 Nodes</span><span class="ps-prod">OCAP/CARE</span><span class="ps-prod">Cross-Domain</span></div></div></div></div><div class="collapsible ps-layer" style="padding:0;"><div class="collapsible-header" style="padding:10px 14px;"><div style="flex:1"><div class="ps-layer-bar agent"><span class="material-icons-outlined">smart_toy</span> Intelligence Layer</div><div class="ps-who">AMII + HelpSeeker</div></div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body" style="padding:0 14px;"><div class="collapsible-body-inner"><div class="ps-desc">Volto — the knowledge graph intelligence engine. Pattern matching, predictive models, entity resolution at scale. AMII provides the research capacity; HelpSeeker operationalizes it.</div><div class="ps-products"><span class="ps-prod"><span class="material-icons-outlined glyph-icon">scatter_plot</span> Volto</span><span class="ps-prod">Predictive Models</span><span class="ps-prod">Graph Analytics</span><span class="ps-prod">Entity Resolution</span></div></div></div></div><div class="collapsible ps-layer" style="padding:0;"><div class="collapsible-header" style="padding:10px 14px;"><div style="flex:1"><div class="ps-layer-bar data"><span class="material-icons-outlined">storage</span> Data Layer</div><div class="ps-who">GOA + HelpSeeker</div></div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body" style="padding:0 14px;"><div class="collapsible-body-inner"><div class="ps-desc">Government owns the data. HelpSeeker structures it through the ontology. Currently 4 open datasets; scales to all government data with sovereign infrastructure.</div><div class="ps-products"><span class="ps-prod">GOA Grants</span><span class="ps-prod">CRA Filings</span><span class="ps-prod">Elections AB</span><span class="ps-prod">COO Table Scaling</span><span class="ps-prod">DMEC Coordination</span></div></div></div></div><div class="collapsible ps-layer" style="padding:0;"><div class="collapsible-header" style="padding:10px 14px;"><div style="flex:1"><div class="ps-layer-bar infra"><span class="material-icons-outlined">cloud</span> Sovereign Infrastructure</div><div class="ps-who">DenvrData</div></div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body" style="padding:0 14px;"><div class="collapsible-body-inner"><div class="ps-desc">Albertan-owned, Albertan-operated computing power. Alberta's most sensitive social data stays on Alberta soil. No US subpoena risk. No foreign jurisdiction.</div><div class="ps-products"><span class="ps-prod">Albertan AI Cloud</span><span class="ps-prod">Private AI Platform</span><span class="ps-prod">GPU Compute</span><span class="ps-prod">Data Sovereignty</span></div></div></div></div>`;
+
+  const WHYS = [
+    { icon:'shield', title:'No single vendor lock-in', body:'Each partner owns a distinct layer. Alberta is not dependent on any one company for the entire system.' },
+    { icon:'flag', title:'Sovereign to Alberta', body:'Not just Canadian — Albertan. Every layer is Alberta-owned and operated. No American cloud provider in the middle.' },
+    { icon:'groups', title:'Government is the anchor client', body:'This partnership was built around Alberta\'s needs. The use case. The data. The outcomes.' },
+    { icon:'lightbulb', title:'Intellectual property stays in Alberta', body:'The IP generated — the ontology, the models, the pipeline — belongs to Alberta. Export it. Sell it to every other province.' },
+    { icon:'storefront', title:'Go-to-market with government', body:'Alberta proves it works. Then we help sell it to the rest of Canada. Provincial government as launch customer for a national platform.' }
+  ];
+
+  const detail = document.getElementById('partnerDetail');
+  detail.innerHTML = `<div class="pl-section-label" style="margin-top:0"><span class="material-icons-outlined">verified</span> Why this structure</div>`;
+  WHYS.forEach(w => {
+    detail.innerHTML += `<div class="collapsible why-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">${w.icon}</span><div class="ch-title">${w.title}</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pd-why-body">${w.body}</div></div></div></div>`;
+  });
+  detail.innerHTML += `<div class="pr-callout" style="margin-top:20px"><div class="pr-callout-label">BOTTOM LINE</div><div class="pr-callout-text">Three Alberta partners with distinct, complementary capabilities building a sovereign platform that no single organization — and no foreign provider — can deliver alone. The intellectual property stays in Alberta. The go-to-market is with government. Alberta proves it. Then we sell it to the rest of Canada.</div></div>`;
+
+  const modalContent = document.getElementById('partnerModalContent');
+  modalContent.innerHTML = `<div class="pm-partner-card"><div class="pm-partner-icon hs"><span class="material-icons-outlined">apps</span></div><div><div class="pm-partner-name" style="color:var(--teal)">HelpSeeker</div><div class="pm-partner-desc">The Kompas Platform, the common language, and the neural network architecture. Applications, ontology, entity resolution, case management, analytics — the entire stack that government staff and citizens actually use.</div><div class="pm-partner-chips"><span class="pm-partner-chip"><span class="material-icons-outlined glyph-icon">explore</span> Navigi</span><span class="pm-partner-chip"><span class="material-icons-outlined glyph-icon">assignment</span> Mareto</span><span class="pm-partner-chip"><span class="material-icons-outlined glyph-icon">insights</span> Karto</span><span class="pm-partner-chip"><span class="material-icons-outlined glyph-icon">scatter_plot</span> Volto</span><span class="pm-partner-chip">Ontology</span><span class="pm-partner-chip">OCAP/CARE</span></div></div></div><div class="pm-partner-card"><div class="pm-partner-icon denvr"><span class="material-icons-outlined">cloud</span></div><div><div class="pm-partner-name" style="color:var(--aqua)">DenvrData</div><div class="pm-partner-desc">Albertan-owned sovereign compute. No US cloud dependency. No foreign jurisdiction. The infrastructure that makes it safe to put government's most sensitive data into the neural network.</div><div class="pm-partner-chips"><span class="pm-partner-chip">Albertan AI Cloud</span><span class="pm-partner-chip">Private AI</span><span class="pm-partner-chip">GPU Compute</span><span class="pm-partner-chip">Data Sovereignty</span></div></div></div><div class="pm-partner-card"><div class="pm-partner-icon amii"><span class="material-icons-outlined">biotech</span></div><div><div class="pm-partner-name" style="color:rgba(160,190,220,0.9)">AMII</div><div class="pm-partner-desc">Alberta's own AI research capacity. Predictive algorithms, advanced neural models, the R&D that nobody else can replicate. Build the intellectual property for Alberta to profit from. Specialize. Sell it to the world.</div><div class="pm-partner-chips"><span class="pm-partner-chip">Advanced AI</span><span class="pm-partner-chip">Predictive Models</span><span class="pm-partner-chip">Entity Resolution</span><span class="pm-partner-chip">IP Development</span></div></div></div>`;
+}
+
+function openPartnerModal() { document.getElementById('partnerModal').classList.add('open'); }
+document.getElementById('partnerModal').addEventListener('click', function(e) { if (e.target === this) this.classList.remove('open'); });
+
+function initKeyPoints() {
+  const el = document.getElementById('keyPointsContent');
+  el.innerHTML = `<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">${KEY_CARDS.map(c => `<div class="collapsible premier-collapsible open"><div class="collapsible-header"><div style="flex:1"><div class="pm-label">${c.label}</div><div class="pm-headline">${c.headline}</div></div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pm-body">${c.body}</div></div></div></div>`).join('')}</div><div class="pa-label"><span class="material-icons-outlined">campaign</span> WHAT CAN BE ANNOUNCED</div>${KEY_ANNOUNCEABLES.map((a,i) => `<div class="collapsible announce-collapsible"><div class="collapsible-header"><div class="pa-num-inline">${i+1}</div><div class="ch-title">${a.title}</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pa-body">${a.body}</div></div></div></div>`).join('')}<div class="pt-label"><span class="material-icons-outlined">timeline</span> IMPLEMENTATION TIMELINE</div>${KEY_TIMELINE.map(t => `<div class="collapsible" style="margin-bottom:4px;"><div class="collapsible-header" style="padding:6px 12px;"><span class="material-icons-outlined ch-icon" style="font-size:14px;">schedule</span><div class="ch-title" style="color:var(--teal);flex:0 0 100px;font-size:10px;">${t.when}</div><div class="ch-sub" style="flex:1;font-size:10px;color:var(--text-secondary);">${t.what.replace(/<strong>/g,'').replace(/<\/strong>/g,'').split(' — ')[0]}</div><span class="material-icons-outlined ch-chevron" style="font-size:14px;">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div style="font-size:10px;font-weight:300;color:var(--text-secondary);line-height:1.45;">${t.what}</div></div></div></div>`).join('')}`;
+}
+
+// ========================================
+// TABS
+// ========================================
+document.querySelectorAll('.nav-item').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s => { s.classList.remove('active'); s.style.display='none'; });
+    tab.classList.add('active');
+    const section = document.getElementById(tab.dataset.tab);
+    section.classList.add('active');
+    section.style.display='flex';
+    if (!section.style.flexDirection) section.style.flexDirection='column';
+  });
+});
+
+// ========================================
+// SYNERGY SVG LINES
+// ========================================
+function drawSynergyLines() {
+  const svg = document.getElementById('synergySvg');
+  const container = svg.parentElement;
+  const rect = container.getBoundingClientRect();
+  if (rect.width === 0) return;
+  const cx = rect.width/2, cy = rect.height/2;
+  const topX = rect.width/2, topY = rect.height*0.02 + 40;
+  const blX = rect.width*0.08 + 65, blY = rect.height*0.98 - 40;
+  const brX = rect.width*0.92 - 65, brY = rect.height*0.98 - 40;
+  svg.innerHTML = `<line x1="${topX}" y1="${topY+30}" x2="${blX}" y2="${blY-30}"/><line x1="${topX}" y1="${topY+30}" x2="${brX}" y2="${brY-30}"/><line x1="${blX+30}" y1="${blY-10}" x2="${brX-30}" y2="${brY-10}"/><line class="to-center" x1="${topX}" y1="${topY+30}" x2="${cx}" y2="${cy}"/><line class="to-center" x1="${blX+30}" y1="${blY-20}" x2="${cx}" y2="${cy}"/><line class="to-center" x1="${brX-30}" y1="${brY-20}" x2="${cx}" y2="${cy}"/>`;
+}
+
+// Init
+initCapabilities();
+initLineage();
+initGraph();
+initPlatform();
+initPartnership();
+initKeyPoints();
+setTimeout(drawSynergyLines, 100);
+window.addEventListener('resize', drawSynergyLines);
+</script>
+</body>
+</html>
