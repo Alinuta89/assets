@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0066a6 0%, #00a0a0 50%, #00c9a7 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            margin: 20px;
+        }
+
+        .logo {
+            width: 90px;
+            height: 90px;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            color: #0077a8;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            color: #374151;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+            background: #f9fafb;
+        }
+
+        input:focus {
+            border-color: #00a0a0;
+            box-shadow: 0 0 0 3px rgba(0, 160, 160, 0.15);
+            background: #fff;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #0077a8, #00b4a0);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.15s;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0, 119, 168, 0.35);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .error-msg {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 14px;
+            display: none;
+            background: #fef2f2;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #fecaca;
+        }
+
+        /* Dashboard styles */
+        .dashboard {
+            display: none;
+            min-height: 100vh;
+            width: 100vw;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: linear-gradient(135deg, #0066a6 0%, #00a0a0 50%, #00c9a7 100%);
+        }
+
+        .dashboard-nav {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .dashboard-nav .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dashboard-nav img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .dashboard-nav span {
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .logout-btn {
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .dashboard-content {
+            padding: 40px 32px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .welcome-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        .welcome-card h2 {
+            color: #0077a8;
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .welcome-card p {
+            color: #6b7280;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-container" id="loginScreen">
+        <img src="logo.jpg" alt="Logo" class="logo">
+        <h1>Welcome Back</h1>
+        <p class="subtitle">Sign in to continue</p>
+        <form onsubmit="return handleLogin(event)">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Enter your username" autocomplete="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password" required>
+            </div>
+            <button type="submit" class="login-btn">Sign In</button>
+            <div class="error-msg" id="errorMsg">Invalid username or password. Please try again.</div>
+        </form>
+    </div>
+
+    <!-- Dashboard (shown after login) -->
+    <div class="dashboard" id="dashboard">
+        <nav class="dashboard-nav">
+            <div class="nav-left">
+                <img src="logo-white.png" alt="Logo">
+                <span>Dashboard</span>
+            </div>
+            <button class="logout-btn" onclick="handleLogout()">Sign Out</button>
+        </nav>
+        <div class="dashboard-content">
+            <div class="welcome-card">
+                <h2>Welcome, Brand!</h2>
+                <p>You have successfully signed in.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin(e) {
+            e.preventDefault();
+            var username = document.getElementById('username').value.trim().toLowerCase();
+            var password = document.getElementById('password').value;
+
+            if (username === 'brand' && password === 'dale') {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                document.getElementById('errorMsg').style.display = 'none';
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+            }
+            return false;
+        }
+
+        function handleLogout() {
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('loginScreen').style.flexDirection = 'column';
+            document.getElementById('loginScreen').style.alignItems = 'center';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('errorMsg').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
