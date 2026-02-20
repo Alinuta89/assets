@@ -856,6 +856,130 @@ body {
 }
 
 /* ========================================
+   LIGHT MODE — Refinements
+   ======================================== */
+[data-theme="light"] .topbar {
+  border-bottom: 1px solid rgba(11,31,51,0.1);
+  box-shadow: 0 1px 4px rgba(11,31,51,0.06);
+}
+[data-theme="light"] .nav-rail {
+  border-bottom: 1px solid rgba(11,31,51,0.08);
+  box-shadow: 0 1px 2px rgba(11,31,51,0.04);
+}
+[data-theme="light"] .stat-card {
+  background: #fff;
+  border: 1px solid rgba(11,31,51,0.08);
+  box-shadow: 0 1px 4px rgba(11,31,51,0.06);
+}
+[data-theme="light"] .stat-card::before { opacity: 0.9; }
+[data-theme="light"] .problem-narrative {
+  background: linear-gradient(135deg, #0B1F33 0%, #1E3A5F 100%);
+}
+[data-theme="light"] .collapsible {
+  background: #fff;
+  border-color: rgba(11,31,51,0.08);
+  box-shadow: 0 1px 3px rgba(11,31,51,0.04);
+}
+[data-theme="light"] .collapsible:hover {
+  border-color: rgba(15,185,177,0.25);
+  box-shadow: 0 2px 6px rgba(11,31,51,0.06);
+}
+[data-theme="light"] .glass {
+  background: #fff;
+  border-color: rgba(11,31,51,0.08);
+  box-shadow: 0 1px 4px rgba(11,31,51,0.06);
+}
+[data-theme="light"] .cap-card {
+  background: #fff;
+  border-color: rgba(11,31,51,0.08);
+  box-shadow: 0 2px 6px rgba(11,31,51,0.06);
+}
+[data-theme="light"] .cap-card:hover {
+  box-shadow: 0 4px 12px rgba(11,31,51,0.08);
+}
+[data-theme="light"] .cap-item {
+  background: rgba(247,249,251,0.8);
+  border-color: rgba(11,31,51,0.08);
+}
+[data-theme="light"] .d-point {
+  background: #fff;
+  border-color: rgba(11,31,51,0.08);
+  box-shadow: 0 1px 3px rgba(11,31,51,0.04);
+}
+[data-theme="light"] .agent-step {
+  background: #fff;
+  border-color: rgba(11,31,51,0.08);
+  box-shadow: 0 1px 3px rgba(11,31,51,0.04);
+}
+[data-theme="light"] .gt-card {
+  background: #fff;
+  border-color: rgba(11,31,51,0.08);
+  box-shadow: 0 1px 4px rgba(11,31,51,0.06);
+}
+[data-theme="light"] .pr-infra-card {
+  background: #fff;
+  border-color: rgba(11,31,51,0.08);
+  box-shadow: 0 1px 3px rgba(11,31,51,0.04);
+}
+[data-theme="light"] .premier-collapsible {
+  background: #fff;
+  border-color: rgba(11,31,51,0.1);
+  box-shadow: 0 2px 6px rgba(11,31,51,0.06);
+}
+[data-theme="light"] .sidebar-shared {
+  background: rgba(247,249,251,0.9);
+  border-color: rgba(11,31,51,0.06);
+}
+[data-theme="light"] .sidebar-card.active,
+[data-theme="light"] .sidebar-card-plain.active {
+  background: rgba(15,185,177,0.06);
+  border-color: var(--teal);
+}
+[data-theme="light"] .synergy-node {
+  background: #fff;
+  border-color: rgba(11,31,51,0.1);
+  box-shadow: 0 2px 8px rgba(11,31,51,0.08);
+}
+[data-theme="light"] .partner-modal {
+  background: #fff;
+  border-color: rgba(11,31,51,0.1);
+  box-shadow: 0 8px 40px rgba(11,31,51,0.15);
+}
+[data-theme="light"] .pm-partner-card {
+  background: rgba(247,249,251,0.6);
+  border-color: rgba(11,31,51,0.08);
+}
+[data-theme="light"] .pr-callout {
+  background: rgba(15,185,177,0.04);
+  border-color: rgba(15,185,177,0.15);
+}
+[data-theme="light"] .d-callout {
+  background: rgba(15,185,177,0.04);
+}
+[data-theme="light"] .scenario-card.active {
+  background: rgba(15,185,177,0.06);
+  border-color: var(--teal);
+}
+[data-theme="light"] .ps-layer {
+  background: #fff;
+  border-color: rgba(11,31,51,0.08);
+  box-shadow: 0 1px 3px rgba(11,31,51,0.04);
+}
+[data-theme="light"] .agent-panel {
+  background: rgba(247,249,251,0.6);
+}
+[data-theme="light"] .platform-left {
+  background: rgba(247,249,251,0.9);
+}
+[data-theme="light"] .compass-diagram {
+  border-color: rgba(11,31,51,0.12);
+  box-shadow: 0 2px 8px rgba(11,31,51,0.06);
+}
+[data-theme="light"] .pr-scale-card {
+  box-shadow: 0 2px 8px rgba(11,31,51,0.08);
+}
+
+/* ========================================
    RESPONSIVE — Tablet (iPad portrait & landscape)
    ======================================== */
 @media (max-width: 1024px) {
@@ -863,9 +987,16 @@ body {
   .shell { height: auto; min-height: 100vh; min-height: 100dvh; }
   .section.active { overflow: visible; min-height: 0; }
 
+  /* Hero section must scroll, not clip */
+  .hero-section { overflow: visible; flex: none; }
+
   /* Nav scrollable */
   .nav-rail { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .nav-item { padding: 0 10px; white-space: nowrap; }
+
+  /* Topbar: wrap right items if needed */
+  .tb-right { gap: 10px; }
+  .tb-indicator:last-of-type { display: none; }
 
   /* Hero */
   .hero-main { padding: 24px 24px 20px; }
@@ -874,35 +1005,38 @@ body {
   .stat-grid-collapsible { padding: 0 24px 12px; }
 
   /* Problem strip stack */
-  .problem-strip { flex-direction: column; }
+  .problem-strip { flex-direction: column; flex: none; }
   .problem-narrative { flex: none; padding: 20px 24px; }
   .problem-visual { flex: none; padding: 16px; max-height: none; overflow: visible; }
 
   /* Sidebar layouts stack */
-  .sidebar-shared { flex: none; width: 100%; border-right: none; border-bottom: 1px solid var(--sidebar-border); padding: 12px; display: flex; gap: 8px; overflow-x: auto; }
+  .sidebar-shared { flex: none; width: 100%; border-right: none; border-bottom: 1px solid var(--sidebar-border); padding: 12px; display: flex; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .sidebar-card, .sidebar-card-plain { flex-shrink: 0; min-width: 160px; margin-bottom: 0; }
   .detail-wrap { flex-direction: column; }
   .detail-panel, .detail-split { padding: 16px 20px; }
   .detail-split { flex-direction: column; }
 
   /* Platform */
+  .platform-section { overflow: visible; flex: none; }
   .platform-hero { padding: 20px 24px; }
   .ph-title { font-size: 18px; }
-  .platform-body { flex-direction: column; }
-  .platform-left { flex: none; width: 100%; border-right: none; border-bottom: 1px solid var(--sidebar-border); padding: 12px; max-height: 240px; }
+  .platform-body { flex-direction: column; flex: none; }
+  .platform-left { flex: none; width: 100%; border-right: none; border-bottom: 1px solid var(--sidebar-border); padding: 12px; max-height: none; }
   .platform-right { padding: 16px 20px; }
 
   /* Graph */
+  .graph-wrap { overflow: visible; flex: none; }
   .graph-top { flex-wrap: wrap; padding: 12px 16px; }
   .gt-card { flex: 1 1 45%; }
-  .graph-body { flex-direction: column; }
+  .graph-body { flex-direction: column; flex: none; }
   .graph-body > .sidebar-shared { flex: none; width: 100%; display: flex; gap: 8px; overflow-x: auto; border-right: none; border-bottom: 1px solid var(--sidebar-border); }
   .scenario-card { flex-shrink: 0; min-width: 180px; }
   .agent-panel { padding: 16px 20px; }
 
   /* Partnership */
-  .partner-body { flex-direction: column; }
-  .partner-stack-col { flex: none; width: 100%; border-right: none; border-bottom: 1px solid var(--sidebar-border); padding: 16px 20px; max-height: 360px; overflow-y: auto; }
+  .partner-section { overflow: visible; flex: none; }
+  .partner-body { flex-direction: column; flex: none; }
+  .partner-stack-col { flex: none; width: 100%; border-right: none; border-bottom: 1px solid var(--sidebar-border); padding: 16px 20px; max-height: none; overflow: visible; }
   .partner-detail-col { padding: 16px 20px; }
   .synergy-loop { max-height: 260px; }
   .synergy-node { width: 110px; padding: 10px 8px; }
@@ -911,10 +1045,11 @@ body {
   .synergy-node.center { width: 120px; }
 
   /* Capabilities */
+  .cap-section { overflow: visible; flex: none; }
   .cap-hero { padding: 20px 24px 12px; }
   .cap-title { font-size: 18px; }
   .cap-stats-strip { grid-template-columns: repeat(2, 1fr); }
-  .cap-cards-area { padding: 16px 20px 20px; }
+  .cap-cards-area { padding: 16px 20px 20px; flex: none; overflow: visible; }
   .cap-card-content { grid-template-columns: 1fr; }
   .cap-card-pills { display: none; }
 
@@ -964,7 +1099,7 @@ body {
   /* Platform */
   .platform-hero { padding: 16px; }
   .ph-title { font-size: 16px; }
-  .platform-left { padding: 10px; max-height: 200px; }
+  .platform-left { padding: 10px; }
   .platform-right { padding: 12px 14px; }
   .compass-products { grid-template-columns: 1fr; }
   .pr-scale-grid { grid-template-columns: 1fr; }
@@ -975,7 +1110,7 @@ body {
   .agent-panel { padding: 12px 14px; }
 
   /* Partnership */
-  .partner-stack-col { padding: 12px 14px; max-height: 280px; }
+  .partner-stack-col { padding: 12px 14px; }
   .partner-detail-col { padding: 12px 14px; }
   .synergy-loop { max-height: 200px; }
   .synergy-node { width: 90px; padding: 8px 6px; }
@@ -1414,7 +1549,7 @@ function initPlatform() {
   left.innerHTML = `<div class="pl-section-label"><span class="material-icons-outlined">check_circle</span> Live Today</div><div class="collapsible pl-collapsible open"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">public</span><div class="ch-title">GOA Grant Disclosures</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pl-source live" style="border:none;padding:4px 0;"><div><div class="pl-src-desc">501,038 records across all ministries and political eras.</div><span class="pl-src-tag pl-tag-live">LIVE</span></div></div></div></div></div><div class="collapsible pl-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">account_balance</span><div class="ch-title">CRA T3010 Filings</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pl-source live" style="border:none;padding:4px 0;"><div><div class="pl-src-desc">All registered charities, directors, financials.</div><span class="pl-src-tag pl-tag-live">LIVE</span></div></div></div></div></div><div class="collapsible pl-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">how_to_vote</span><div class="ch-title">Elections Alberta</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pl-source live" style="border:none;padding:4px 0;"><div><div class="pl-src-desc">23,203 political contribution records.</div><span class="pl-src-tag pl-tag-live">LIVE</span></div></div></div></div></div><div class="collapsible pl-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">account_tree</span><div class="ch-title">Ministry Lineage</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pl-source live" style="border:none;padding:4px 0;"><div><div class="pl-src-desc">74 transformations, 51 nodes, 3 governments.</div><span class="pl-src-tag pl-tag-live">LIVE</span></div></div></div></div></div><div class="pl-section-label"><span class="material-icons-outlined">schedule</span> Next (with sovereign infra)</div><div class="collapsible pl-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">badge</span><div class="ch-title">Common Client Records</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pl-source future" style="border:none;padding:4px 0;"><div><div class="pl-src-desc">225,000 high system users across 9 ministries.</div><span class="pl-src-tag pl-tag-next">NEXT</span></div></div></div></div></div><div class="collapsible pl-collapsible"><div class="collapsible-header"><span class="material-icons-outlined ch-icon">medical_services</span><div class="ch-title">Physician Billing</div><span class="material-icons-outlined ch-chevron">expand_more</span></div><div class="collapsible-body"><div class="collapsible-body-inner"><div class="pl-source future" style="border:none;padding:4px 0;"><div><div class="pl-src-desc">$7B annual spend. Fee code analysis across provinces.</div><span class="pl-src-tag pl-tag-next">NEXT</span></div></div></div></div></div>`;
 
   const right = document.getElementById('platformRight');
-  right.innerHTML = `<div class="compass-diagram"><div class="compass-title-bar"><span class="material-icons-outlined glyph-icon">explore</span> KOMPAS STACK ARCHITECTURE</div><div class="compass-outer"><div class="compass-ring">✵ KOMPAS — Unified Ontology Layer (KGL v1.4)<div class="ring-sub">53 canonical nodes · Semasiographic · Cross-domain</div></div><div class="compass-flow"><span class="material-icons-outlined compass-arrow">south</span><span class="material-icons-outlined compass-arrow">south</span><span class="material-icons-outlined compass-arrow">south</span></div><div class="compass-products"><div class="compass-product"><div class="cp-glyph"><span class="material-icons-outlined glyph-icon">explore</span></div><div class="cp-name">✶ Navigi</div><div class="cp-role">Service navigation · Heart</div></div><div class="compass-product"><div class="cp-glyph"><span class="material-icons-outlined glyph-icon">assignment</span></div><div class="cp-name">✷ Mareto</div><div class="cp-role">Case management · Body</div></div><div class="compass-product"><div class="cp-glyph"><span class="material-icons-outlined glyph-icon">insights</span></div><div class="cp-name">✸ Karto</div><div class="cp-role">Analytics · Mind</div></div></div><div class="compass-flow"><span class="material-icons-outlined compass-arrow">south</span><span class="material-icons-outlined compass-arrow">south</span><span class="material-icons-outlined compass-arrow">south</span></div><div class="compass-volto"><span class="material-icons-outlined cv-icon">scatter_plot</span><div class="cv-name"><span class="material-icons-outlined glyph-icon">scatter_plot</span> ✹ Volto</div><div class="cv-role">Knowledge graph intelligence · Spirit</div></div></div></div><div class="pl-section-label"><span class="material-icons-outlined">domain</span> Infrastructure Partners</div><div class="pr-infra-card"><div class="pr-infra-name">HelpSeeker Technologies</div><div class="pr-infra-role">Platform, ontology (KGL), entity resolution, all four products. The application layer that government and citizens interact with.</div><div class="pr-infra-tag">APPLICATION + ONTOLOGY</div></div><div class="pr-infra-card"><div class="pr-infra-name">DenvrData</div><div class="pr-infra-role">Albertan-owned sovereign compute. No US cloud dependency. The infrastructure that makes it safe to put sensitive data into the neural network.</div><div class="pr-infra-tag">SOVEREIGN COMPUTE</div></div><div class="pr-infra-card"><div class="pr-infra-name">AMII</div><div class="pr-infra-role">Alberta's AI research capacity. Predictive algorithms, entity resolution, advanced models. The IP Alberta can export.</div><div class="pr-infra-tag">AI RESEARCH</div></div><div class="pr-scale-grid"><div class="pr-scale-card"><div class="pr-scale-value">~$5/hr</div><div class="pr-scale-label">Current compute cost</div><div class="pr-scale-sub">Open data only</div></div><div class="pr-scale-card"><div class="pr-scale-value">4</div><div class="pr-scale-label">Datasets linked</div><div class="pr-scale-sub">Of 10,000+ available</div></div><div class="pr-scale-card"><div class="pr-scale-value">ms</div><div class="pr-scale-label">Query response</div><div class="pr-scale-sub">vs overnight batch</div></div></div>`;
+  right.innerHTML = `<div class="compass-diagram"><div class="compass-title-bar"><span class="material-icons-outlined glyph-icon">explore</span> KOMPAS STACK ARCHITECTURE</div><div class="compass-outer"><div class="compass-ring">KOMPAS — Unified Ontology Layer (KGL v1.4)<div class="ring-sub">53 canonical nodes · Semasiographic · Cross-domain</div></div><div class="compass-flow"><span class="material-icons-outlined compass-arrow">south</span><span class="material-icons-outlined compass-arrow">south</span><span class="material-icons-outlined compass-arrow">south</span></div><div class="compass-products"><div class="compass-product"><div class="cp-glyph"><span class="material-icons-outlined glyph-icon">explore</span></div><div class="cp-name">Navigi</div><div class="cp-role">Service navigation · Heart</div></div><div class="compass-product"><div class="cp-glyph"><span class="material-icons-outlined glyph-icon">assignment</span></div><div class="cp-name">Mareto</div><div class="cp-role">Case management · Body</div></div><div class="compass-product"><div class="cp-glyph"><span class="material-icons-outlined glyph-icon">insights</span></div><div class="cp-name">Karto</div><div class="cp-role">Analytics · Mind</div></div></div><div class="compass-flow"><span class="material-icons-outlined compass-arrow">south</span><span class="material-icons-outlined compass-arrow">south</span><span class="material-icons-outlined compass-arrow">south</span></div><div class="compass-volto"><span class="material-icons-outlined cv-icon">scatter_plot</span><div class="cv-name"><span class="material-icons-outlined glyph-icon">scatter_plot</span> Volto</div><div class="cv-role">Knowledge graph intelligence · Spirit</div></div></div></div><div class="pl-section-label"><span class="material-icons-outlined">domain</span> Infrastructure Partners</div><div class="pr-infra-card"><div class="pr-infra-name">HelpSeeker Technologies</div><div class="pr-infra-role">Platform, ontology (KGL), entity resolution, all four products. The application layer that government and citizens interact with.</div><div class="pr-infra-tag">APPLICATION + ONTOLOGY</div></div><div class="pr-infra-card"><div class="pr-infra-name">DenvrData</div><div class="pr-infra-role">Albertan-owned sovereign compute. No US cloud dependency. The infrastructure that makes it safe to put sensitive data into the neural network.</div><div class="pr-infra-tag">SOVEREIGN COMPUTE</div></div><div class="pr-infra-card"><div class="pr-infra-name">AMII</div><div class="pr-infra-role">Alberta's AI research capacity. Predictive algorithms, entity resolution, advanced models. The IP Alberta can export.</div><div class="pr-infra-tag">AI RESEARCH</div></div><div class="pr-scale-grid"><div class="pr-scale-card"><div class="pr-scale-value">~$5/hr</div><div class="pr-scale-label">Current compute cost</div><div class="pr-scale-sub">Open data only</div></div><div class="pr-scale-card"><div class="pr-scale-value">4</div><div class="pr-scale-label">Datasets linked</div><div class="pr-scale-sub">Of 10,000+ available</div></div><div class="pr-scale-card"><div class="pr-scale-value">ms</div><div class="pr-scale-label">Query response</div><div class="pr-scale-sub">vs overnight batch</div></div></div>`;
 }
 
 function initPartnership() {
