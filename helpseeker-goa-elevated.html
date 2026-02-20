@@ -854,6 +854,156 @@ body {
 .scenario-card, .sidebar-card, .sidebar-card-plain {
   transition: background 0.4s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
+
+/* ========================================
+   RESPONSIVE — Tablet (iPad portrait & landscape)
+   ======================================== */
+@media (max-width: 1024px) {
+  body { overflow: auto; height: auto; }
+  .shell { height: auto; min-height: 100vh; min-height: 100dvh; }
+  .section.active { overflow: visible; min-height: 0; }
+
+  /* Nav scrollable */
+  .nav-rail { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .nav-item { padding: 0 10px; white-space: nowrap; }
+
+  /* Hero */
+  .hero-main { padding: 24px 24px 20px; }
+  .hero-title { font-size: 26px; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); padding: 0 24px 16px; }
+  .stat-grid-collapsible { padding: 0 24px 12px; }
+
+  /* Problem strip stack */
+  .problem-strip { flex-direction: column; }
+  .problem-narrative { flex: none; padding: 20px 24px; }
+  .problem-visual { flex: none; padding: 16px; max-height: none; overflow: visible; }
+
+  /* Sidebar layouts stack */
+  .sidebar-shared { flex: none; width: 100%; border-right: none; border-bottom: 1px solid var(--sidebar-border); padding: 12px; display: flex; gap: 8px; overflow-x: auto; }
+  .sidebar-card, .sidebar-card-plain { flex-shrink: 0; min-width: 160px; margin-bottom: 0; }
+  .detail-wrap { flex-direction: column; }
+  .detail-panel, .detail-split { padding: 16px 20px; }
+  .detail-split { flex-direction: column; }
+
+  /* Platform */
+  .platform-hero { padding: 20px 24px; }
+  .ph-title { font-size: 18px; }
+  .platform-body { flex-direction: column; }
+  .platform-left { flex: none; width: 100%; border-right: none; border-bottom: 1px solid var(--sidebar-border); padding: 12px; max-height: 240px; }
+  .platform-right { padding: 16px 20px; }
+
+  /* Graph */
+  .graph-top { flex-wrap: wrap; padding: 12px 16px; }
+  .gt-card { flex: 1 1 45%; }
+  .graph-body { flex-direction: column; }
+  .graph-body > .sidebar-shared { flex: none; width: 100%; display: flex; gap: 8px; overflow-x: auto; border-right: none; border-bottom: 1px solid var(--sidebar-border); }
+  .scenario-card { flex-shrink: 0; min-width: 180px; }
+  .agent-panel { padding: 16px 20px; }
+
+  /* Partnership */
+  .partner-body { flex-direction: column; }
+  .partner-stack-col { flex: none; width: 100%; border-right: none; border-bottom: 1px solid var(--sidebar-border); padding: 16px 20px; max-height: 360px; overflow-y: auto; }
+  .partner-detail-col { padding: 16px 20px; }
+  .synergy-loop { max-height: 260px; }
+  .synergy-node { width: 110px; padding: 10px 8px; }
+  .synergy-node .material-icons-outlined { font-size: 20px; }
+  .synergy-node .sn-name { font-size: 9px; }
+  .synergy-node.center { width: 120px; }
+
+  /* Capabilities */
+  .cap-hero { padding: 20px 24px 12px; }
+  .cap-title { font-size: 18px; }
+  .cap-stats-strip { grid-template-columns: repeat(2, 1fr); }
+  .cap-cards-area { padding: 16px 20px 20px; }
+  .cap-card-content { grid-template-columns: 1fr; }
+  .cap-card-pills { display: none; }
+
+  /* Key Points */
+  .premier-section { padding: 16px 20px; }
+
+  /* Modal */
+  .partner-modal { width: 90vw; max-width: 480px; padding: 20px; }
+
+  /* Scale grids */
+  .pr-scale-grid { grid-template-columns: 1fr 1fr; }
+  .compass-products { grid-template-columns: 1fr 1fr; }
+}
+
+/* ========================================
+   RESPONSIVE — Phone
+   ======================================== */
+@media (max-width: 600px) {
+  .topbar { padding: 0 12px; height: 42px; }
+  .tb-name { font-size: 9px; letter-spacing: 3px; }
+  .tb-status { display: none; }
+  .tb-indicator { display: none; }
+  .nav-rail { height: 44px; padding: 0 8px; }
+  .nav-item span:last-child { font-size: 9px; }
+  .nav-item .material-icons-outlined { font-size: 16px; }
+
+  /* Hero */
+  .hero-main { padding: 16px 16px 12px; }
+  .hero-title { font-size: 22px; }
+  .hero-sub { font-size: 12px; }
+  .stat-grid { grid-template-columns: 1fr; padding: 0 16px 12px; gap: 8px; }
+  .stat-grid-collapsible { padding: 0 16px 8px; }
+  .stat-value { font-size: 20px; }
+
+  /* Problem */
+  .problem-narrative { padding: 16px; }
+  .pn-title { font-size: 16px; }
+  .problem-visual { padding: 12px; }
+
+  /* Sidebar horizontal scroll */
+  .sidebar-shared { padding: 10px; gap: 6px; }
+  .sidebar-card, .sidebar-card-plain { min-width: 140px; }
+
+  /* Detail */
+  .detail-panel, .detail-split { padding: 12px 14px; }
+
+  /* Platform */
+  .platform-hero { padding: 16px; }
+  .ph-title { font-size: 16px; }
+  .platform-left { padding: 10px; max-height: 200px; }
+  .platform-right { padding: 12px 14px; }
+  .compass-products { grid-template-columns: 1fr; }
+  .pr-scale-grid { grid-template-columns: 1fr; }
+
+  /* Graph */
+  .graph-top { padding: 10px 12px; gap: 6px; }
+  .gt-card { flex: 1 1 100%; }
+  .agent-panel { padding: 12px 14px; }
+
+  /* Partnership */
+  .partner-stack-col { padding: 12px 14px; max-height: 280px; }
+  .partner-detail-col { padding: 12px 14px; }
+  .synergy-loop { max-height: 200px; }
+  .synergy-node { width: 90px; padding: 8px 6px; }
+  .synergy-node .material-icons-outlined { font-size: 16px; }
+  .synergy-node .sn-name { font-size: 8px; }
+  .synergy-node .sn-role { font-size: 7px; }
+  .synergy-node.center { width: 100px; }
+
+  /* Capabilities */
+  .cap-hero { padding: 16px; }
+  .cap-title { font-size: 16px; }
+  .cap-summary { font-size: 11px; }
+  .cap-stats-strip { grid-template-columns: 1fr 1fr; }
+  .cap-stat { padding: 10px 12px; }
+  .cap-cards-area { padding: 12px 14px 16px; }
+  .cap-card-header { padding: 12px 14px; gap: 10px; }
+  .cap-card-icon { width: 32px; height: 32px; }
+  .cap-card-title { font-size: 12px; }
+  .cap-card-content { padding: 0 14px 14px; padding-top: 12px; gap: 14px; }
+
+  /* Key Points */
+  .premier-section { padding: 12px 14px; }
+  .pm-headline { font-size: 13px; }
+
+  /* Modal */
+  .partner-modal { width: 95vw; padding: 16px; }
+  .pm-partner-card { flex-direction: column; gap: 10px; padding: 12px; }
+}
 </style>
 </head>
 <body>
